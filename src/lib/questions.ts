@@ -356,5 +356,75 @@ export const questions: Question[] = [
     options: ["//This is a comment", "<!--This is a comment-->", "/*This is a comment*/", "#This is a comment"],
     answer: "/*This is a comment*/",
     topic: "JavaScript"
+  },
+  {
+    id: 51,
+    question: "What does the `alt` attribute in an `<img>` tag provide?",
+    options: ["A caption for the image", "A URL to a high-resolution version of the image", "Alternative text for an image if it cannot be displayed", "A title for the image"],
+    answer: "Alternative text for an image if it cannot be displayed",
+    topic: "HTML"
+  },
+  {
+    id: 52,
+    question: "Which HTML element is used to specify a footer for a document or section?",
+    options: ["<bottom>", "<footer>", "<section>", "<end>"],
+    answer: "<footer>",
+    topic: "HTML"
+  },
+  {
+    id: 53,
+    question: "What is the correct CSS syntax for making all the <p> elements bold?",
+    options: ["p {text-size:bold;}", "p {font-weight:bold;}", "p {style:bold;}", "<p style='font-weight:bold;'>"],
+    answer: "p {font-weight:bold;}",
+    topic: "CSS"
+  },
+  {
+    id: 54,
+    question: "How do you make each word in a text start with a capital letter using CSS?",
+    options: ["text-transform:capitalize", "text-style:capitalize", "text-transform:uppercase", "You can't do this with CSS"],
+    answer: "text-transform:capitalize",
+    topic: "CSS"
+  },
+  {
+    id: 55,
+    question: "How do you call a function named 'myFunction' in JavaScript?",
+    options: ["call myFunction();", "call function myFunction();", "myFunction();", "Call.myFunction();"],
+    answer: "myFunction();",
+    topic: "JavaScript"
+  },
+  {
+    id: 56,
+    question: "How do you write an IF statement in JavaScript?",
+    options: ["if i = 5 then", "if (i == 5)", "if i == 5", "if i = 5"],
+    answer: "if (i == 5)",
+    topic: "JavaScript"
+  },
+  {
+    id: 57,
+    question: "How does a 'for' loop start?",
+    options: ["for (i = 0; i <= 5)", "for (i <= 5; i++)", "for (i = 0; i <= 5; i++)", "for i = 1 to 5"],
+    answer: "for (i = 0; i <= 5; i++)",
+    topic: "JavaScript"
+  },
+  {
+    id: 58,
+    question: "Which component is known as the 'brain' of the Arduino board?",
+    options: ["USB Port", "Microcontroller", "VIN Pin", "GND Pin"],
+    answer: "Microcontroller",
+    topic: "Robotics"
+  },
+  {
+    id: 59,
+    question: "What type of connector is a Berg strip?",
+    options: ["A type of battery clip", "A single core wire", "A pin header", "An alligator connector"],
+    answer: "A pin header",
+    topic: "Robotics"
+  },
+  {
+    id: 60,
+    question: "What is the primary use of a hook-up wire?",
+    options: ["To connect batteries to DC jacks", "To make temporary connections on breadboards", "For internal wiring of electronic devices", "To clip onto components"],
+    answer: "For internal wiring of electronic devices",
+    topic: "Robotics"
   }
 ];
