@@ -1,9 +1,19 @@
+
+"use client";
+
 import CodeEvaluationClient from "@/components/faculty/CodeEvaluationClient";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function CodeEvaluationPage() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <div className="p-4 sm:p-6 md:p-8">
       <div className="container mx-auto">
@@ -15,7 +25,7 @@ export default function CodeEvaluationPage() {
             AI-Assisted Code Evaluation
             </h1>
         </div>
-        <CodeEvaluationClient />
+        {isClient && <CodeEvaluationClient />}
       </div>
     </div>
   );
