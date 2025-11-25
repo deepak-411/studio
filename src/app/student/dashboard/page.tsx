@@ -1,0 +1,103 @@
+import Header from "@/components/Header";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { BookOpen, Trophy } from "lucide-react";
+import Link from "next/link";
+
+export default function StudentDashboard() {
+  // Mock student data
+  const student = {
+    name: "Jane Doe",
+    rollNumber: "101",
+    class: "10",
+    section: "A",
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col">
+       <header className="sticky top-0 z-50 w-full border-b bg-card/80 shadow-sm backdrop-blur">
+            <div className="container mx-auto flex h-16 items-center justify-between px-4">
+                <div className="flex items-center gap-4">
+                    <Link href="/">
+                       <h1 className="font-headline text-xl font-bold text-foreground">HWHS Portal</h1>
+                    </Link>
+                </div>
+                 <div className="flex items-center gap-4">
+                    <span className="text-sm text-muted-foreground hidden sm:inline">Welcome, {student.name}</span>
+                    <Button variant="outline" size="sm" asChild>
+                       <Link href="/auth">
+                         Logout
+                       </Link>
+                    </Button>
+                </div>
+            </div>
+        </header>
+
+      <main className="flex-1 p-4 sm:p-6 md:p-8">
+        <div className="container mx-auto">
+            <h1 className="font-headline text-4xl font-bold mb-8">Student Dashboard</h1>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <Card className="lg:col-span-1">
+                    <CardHeader>
+                        <CardTitle>My Profile</CardTitle>
+                        <CardDescription>Your personal information.</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                        <div>
+                            <p className="font-semibold text-muted-foreground">Name</p>
+                            <p className="text-lg">{student.name}</p>
+                        </div>
+                         <div>
+                            <p className="font-semibold text-muted-foreground">Roll Number</p>
+                            <p className="text-lg">{student.rollNumber}</p>
+                        </div>
+                         <div>
+                            <p className="font-semibold text-muted-foreground">Class</p>
+                            <p className="text-lg">{student.class} - {student.section}</p>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <Card className="flex flex-col justify-between">
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <BookOpen className="text-primary"/>
+                                Available Exam
+                            </CardTitle>
+                            <CardDescription>Mid-Term Robotics & AI Exam</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                           <p><strong>Duration:</strong> 1 Hour</p>
+                           <p><strong>Questions:</strong> 30 MCQs + 1 Coding</p>
+                        </CardContent>
+                        <CardFooter>
+                            <Button asChild className="w-full">
+                                <Link href="/exam/1">Start Exam</Link>
+                            </Button>
+                        </CardFooter>
+                    </Card>
+                     <Card className="flex flex-col justify-between">
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <Trophy className="text-accent"/>
+                                My Results
+                            </CardTitle>
+                            <CardDescription>Check your published exam results.</CardDescription>
+                        </CardHeader>
+                         <CardContent>
+                           <p className="text-muted-foreground">No results published yet.</p>
+                        </CardContent>
+                        <CardFooter>
+                            <Button asChild className="w-full" variant="secondary">
+                                <Link href="/results/101">View Results</Link>
+                            </Button>
+                        </CardFooter>
+                    </Card>
+                </div>
+            </div>
+        </div>
+      </main>
+    </div>
+  );
+}
