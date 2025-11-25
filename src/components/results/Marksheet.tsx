@@ -1,3 +1,6 @@
+"use client";
+
+import * as React from "react";
 import Logo from "@/components/Logo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -27,6 +30,12 @@ export default function Marksheet({
     totalObtained,
     totalMax
 }: MarksheetProps) {
+    const [currentDate, setCurrentDate] = React.useState("");
+
+    React.useEffect(() => {
+        setCurrentDate(new Date().toLocaleDateString());
+    }, []);
+
     const grade = (totalObtained / totalMax) >= 0.9 ? 'A1' : (totalObtained / totalMax) >= 0.8 ? 'A2' : (totalObtained / totalMax) >= 0.7 ? 'B1' : 'B2';
   return (
     <Card className="max-w-4xl mx-auto border-2 border-primary shadow-2xl print:shadow-none print:border-none">
@@ -94,7 +103,7 @@ export default function Marksheet({
                     <p className="font-bold">Grade: <span className="text-primary">{grade}</span></p>
                  </div>
                  <div className="text-right">
-                    <p>Date: {new Date().toLocaleDateString()}</p>
+                    <p>Date: {currentDate}</p>
                  </div>
             </div>
 
