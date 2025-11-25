@@ -40,9 +40,9 @@ const codeEvaluationPrompt = ai.definePrompt({
   Given the following student code, the expected output, the programming language, and the evaluation criteria, provide feedback and a suggested score.
 
   Code:
-  ```{{{language}}}
-  {{{code}}}
-  ```
+  \`\`\`{{{language}}}
+{{{code}}}
+  \`\`\`
 
   Expected Output:
   {{{expectedOutput}}}
