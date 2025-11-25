@@ -217,4 +217,144 @@ export const questions: Question[] = [
     answer: "The target of the link (URL)",
     topic: "HTML"
   },
+  {
+    id: 31,
+    question: "What is the typical operating voltage range for a standard LED?",
+    options: ["0.5V to 1.0V", "1.8V to 3.3V", "5V to 9V", "12V to 24V"],
+    answer: "1.8V to 3.3V",
+    topic: "Robotics"
+  },
+  {
+    id: 32,
+    question: "Which of the following is NOT a primary color in an RGB LED?",
+    options: ["Red", "Green", "Blue", "Yellow"],
+    answer: "Yellow",
+    topic: "Robotics"
+  },
+  {
+    id: 33,
+    question: "What is the main purpose of a breadboard?",
+    options: ["To permanently solder components", "To test circuits temporarily", "To supply power to a circuit", "To amplify signals"],
+    answer: "To test circuits temporarily",
+    topic: "Robotics"
+  },
+  {
+    id: 34,
+    question: "What is another name for a General Purpose Solderable Board?",
+    options: ["Breadboard", "DOT PCB", "Motherboard", "CPU"],
+    answer: "DOT PCB",
+    topic: "Robotics"
+  },
+  {
+    id: 35,
+    question: "What is the basic principle of a battery?",
+    options: ["Conversion of mechanical energy to electrical energy", "Conversion of thermal energy to electrical energy", "Conversion of chemical energy to electrical energy", "Conversion of nuclear energy to electrical energy"],
+    answer: "Conversion of chemical energy to electrical energy",
+    topic: "Robotics"
+  },
+  {
+    id: 36,
+    question: "What is the function of a resistor in an electronic circuit?",
+    options: ["To store energy", "To amplify current", "To reduce current flow", "To act as a one-way switch"],
+    answer: "To reduce current flow",
+    topic: "Robotics"
+  },
+  {
+    id: 37,
+    question: "What does a capacitor store energy as?",
+    options: ["A magnetic field", "An electric charge", "Kinetic energy", "Potential energy"],
+    answer: "An electric charge",
+    topic: "Robotics"
+  },
+  {
+    id: 38,
+    question: "How can you reverse the direction of a simple DC motor?",
+    options: ["Increase the voltage", "Decrease the voltage", "Reverse the polarity of the power supply", "Add a capacitor"],
+    answer: "Reverse the polarity of the power supply",
+    topic: "Robotics"
+  },
+  {
+    id: 39,
+    question: "What is the main advantage of a servo motor?",
+    options: ["High speed", "High torque", "Precise control of angular position", "Low power consumption"],
+    answer: "Precise control of angular position",
+    topic: "Robotics"
+  },
+  {
+    id: 40,
+    question: "What are the characteristics of a DC Geared motor (BO motor)?",
+    options: ["High speed, low torque", "Low speed, high torque", "High speed, high torque", "Low speed, low torque"],
+    answer: "Low speed, high torque",
+    topic: "Robotics"
+  },
+  {
+    id: 41,
+    question: "What is a diode?",
+    options: ["A two-way switch for current", "A device that amplifies current", "A one-way switch for current", "A device that stores charge"],
+    answer: "A one-way switch for current",
+    topic: "Robotics"
+  },
+  {
+    id: 42,
+    question: "What is a transistor used for?",
+    options: ["To generate light", "To store energy", "To act as a switch or amplifier", "To measure temperature"],
+    answer: "To act as a switch or amplifier",
+    topic: "Robotics"
+  },
+  {
+    id: 43,
+    question: "What is the 'brain' of an Arduino board?",
+    options: ["USB port", "Microcontroller", "Digital pins", "Analog pins"],
+    answer: "Microcontroller",
+    topic: "Robotics"
+  },
+  {
+    id: 44,
+    question: "Which type of jumper cable is used to connect a component to a breadboard?",
+    options: ["Male-Male", "Male-Female", "Female-Female", "Alligator clips"],
+    answer: "Male-Male",
+    topic: "Robotics"
+  },
+  {
+    id: 45,
+    question: "What is a Berg strip (pin header) used for?",
+    options: ["To supply power", "To make connections on circuit boards", "To control motor speed", "To display information"],
+    answer: "To make connections on circuit boards",
+    topic: "Robotics"
+  },
+  {
+    id: 46,
+    question: "Which HTML tag is used to create a hyperlink?",
+    options: ["<link>", "<a>", "<href>", "<hyperlink>"],
+    answer: "<a>",
+    topic: "HTML"
+  },
+  {
+    id: 47,
+    question: "Which CSS property is used to make text bold?",
+    options: ["font-style", "font-weight", "text-decoration", "text-transform"],
+    answer: "font-weight",
+    topic: "CSS"
+  },
+  {
+    id: 48,
+    question: "How do you create a function in JavaScript?",
+    options: ["function:myFunction()", "function = myFunction()", "function myFunction()", "create function myFunction()"],
+    answer: "function myFunction()",
+    topic: "JavaScript"
+  },
+  {
+    id: 49,
+    question: "Which of these is NOT a valid JavaScript data type?",
+    options: ["string", "number", "boolean", "character"],
+    answer: "character",
+    topic: "JavaScript"
+  },
+  {
+    id: 50,
+    question: "What is the correct way to write a comment in JavaScript that spans multiple lines?",
+    options: ["//This is a comment", "<!--This is a comment-->", "/*This is a comment*/", "#This is a comment"],
+    answer: "/*This is a comment*/",
+    topic: "JavaScript"
+  }
 ];
