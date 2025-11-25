@@ -1,15 +1,8 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { BookCopy, CheckSquare, Presentation, User } from "lucide-react";
 import Link from "next/link";
-
-const mockStudents = [
-    { id: 1, name: "Alice Johnson", class: "10-A", roll: "101" },
-    { id: 2, name: "Bob Williams", class: "10-A", roll: "102" },
-    { id: 3, name: "Charlie Brown", class: "10-B", roll: "201" },
-    { id: 4, name: "Diana Miller", class: "9-A", roll: "301" },
-]
 
 export default function FacultyDashboard() {
   return (
@@ -80,40 +73,7 @@ export default function FacultyDashboard() {
                     </Card>
                 </div>
 
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Student List</CardTitle>
-                        <CardDescription>List of registered students.</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Roll No.</TableHead>
-                                    <TableHead>Name</TableHead>
-                                    <TableHead>Class</TableHead>
-                                    <TableHead className="text-right">Actions</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {mockStudents.map(student => (
-                                    <TableRow key={student.id}>
-                                        <TableCell>{student.roll}</TableCell>
-                                        <TableCell className="font-medium">{student.name}</TableCell>
-                                        <TableCell>{student.class}</TableCell>
-                                        <TableCell className="text-right">
-                                            <Button variant="link" size="sm" asChild>
-                                                <Link href={`/results/${student.roll}`}>View Results</Link>
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </CardContent>
-                </Card>
-
-                 <Card className="mt-8">
+                 <Card>
                     <CardHeader>
                         <CardTitle>Manage Exams</CardTitle>
                         <CardDescription>Schedule new exams and manage results.</CardDescription>
