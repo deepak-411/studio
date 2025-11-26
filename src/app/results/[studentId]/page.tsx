@@ -16,7 +16,7 @@ export default function ResultPage() {
         rollNumber: studentId,
         class: "10",
         section: "A",
-        exam: "Mid-Term Examination 2024",
+        exam: "Robotics and AI Examination 2025",
         marks: {
             robotics: 65,
             coding: 15,
