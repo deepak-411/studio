@@ -1,14 +1,23 @@
+
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface TimerProps {
   initialTime: number;
   onTimeUp: () => void;
+  playSound?: boolean;
 }
 
-export default function Timer({ initialTime, onTimeUp }: TimerProps) {
+export default function Timer({ initialTime, onTimeUp, playSound = false }: TimerProps) {
   const [timeLeft, setTimeLeft] = useState(initialTime);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+        audioRef.current = new Audio('/tick.mp3');
+    }
+  }, []);
 
   useEffect(() => {
     if (timeLeft <= 0) {
@@ -17,11 +26,20 @@ export default function Timer({ initialTime, onTimeUp }: TimerProps) {
     }
 
     const intervalId = setInterval(() => {
-      setTimeLeft((prevTime) => prevTime - 1);
+      setTimeLeft((prevTime) => {
+        const newTime = prevTime - 1;
+        if (playSound && newTime > 0) {
+            if (audioRef.current) {
+                audioRef.current.currentTime = 0;
+                audioRef.current.play().catch(e => console.error("Audio play failed:", e));
+            }
+        }
+        return newTime;
+      });
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [timeLeft, onTimeUp]);
+  }, [timeLeft, onTimeUp, playSound]);
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;

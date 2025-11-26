@@ -39,10 +39,9 @@ export default function ExamClient({ examId }: { examId: string }) {
   useEffect(() => {
     const questionSetIndex = parseInt(examId, 10) - 1;
     if (isNaN(questionSetIndex) || questionSetIndex < 0 || questionSetIndex >= 8) {
-        // Handle invalid examId, maybe redirect or show an error
         console.error("Invalid exam set ID");
         setMcqQuestions([]);
-        setStatus("submitted"); // Or an error state
+        setStatus("submitted");
         return;
     }
     
@@ -50,10 +49,8 @@ export default function ExamClient({ examId }: { examId: string }) {
     const start = questionSetIndex * questionsPerSet;
     const end = start + questionsPerSet;
     
-    // Ensure we have enough questions
     if (questions.length < end) {
         console.error("Not enough questions in the question bank for all sets.");
-        // Fallback or error handling
         setMcqQuestions(shuffleArray(questions).slice(0, 30));
     } else {
         const examQuestions = questions.slice(start, end);
@@ -66,15 +63,8 @@ export default function ExamClient({ examId }: { examId: string }) {
   const currentQuestion = mcqQuestions[currentQuestionIndex];
 
   const handleNextQuestion = () => {
-    if (!answers[currentQuestion.id]) {
-      toast({
-        variant: "destructive",
-        title: "No option selected",
-        description: "Please select an option before proceeding.",
-      });
-      return;
-    }
-
+    // If no answer is selected, we just move on when time is up.
+    // A toast message for manual navigation is fine.
     if (currentQuestionIndex < mcqQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
@@ -82,17 +72,25 @@ export default function ExamClient({ examId }: { examId: string }) {
     }
   };
 
-  const handleTimeUp = () => {
-    toast({
-      title: "Time's up!",
-      description: "Moving to the next section or submitting.",
-    });
-    if (status === "mcq") {
-      setStatus("coding");
-    } else if (status === 'coding') {
-        handleSubmitExam();
+  const handleManualNext = () => {
+     if (!answers[currentQuestion.id]) {
+      toast({
+        variant: "destructive",
+        title: "No option selected",
+        description: "Please select an option before proceeding.",
+      });
+      return;
     }
-  };
+    handleNextQuestion();
+  }
+
+  const handleCodingTimeUp = () => {
+     toast({
+      title: "Time's up!",
+      description: "Submitting your exam now.",
+    });
+    handleSubmitExam();
+  }
 
   const handleSubmitExam = () => {
     let score = 0;
@@ -103,7 +101,7 @@ export default function ExamClient({ examId }: { examId: string }) {
     });
 
     const totalMcq = mcqQuestions.length;
-    const mcqScore = (score / totalMcq) * 80; // 80 marks for MCQs
+    const mcqScore = (score / totalMcq) * 80;
 
     console.log("--- EXAM SUBMISSION ---");
     console.log(`Exam ID: ${examId}`);
@@ -166,7 +164,7 @@ export default function ExamClient({ examId }: { examId: string }) {
                  Question {currentQuestionIndex + 1} of {mcqQuestions.length}
                </CardDescription>
              </div>
-             <Timer initialTime={3600} onTimeUp={handleTimeUp} key={status}/>
+             <Timer initialTime={60} onTimeUp={handleNextQuestion} playSound={true} key={`${status}-${currentQuestionIndex}`}/>
            </div>
            <Progress value={((currentQuestionIndex + 1) / mcqQuestions.length) * 100} className="mt-4" />
          </CardHeader>
@@ -188,7 +186,7 @@ export default function ExamClient({ examId }: { examId: string }) {
            </RadioGroup>
          </CardContent>
          <CardFooter className="justify-end border-t pt-4">
-           <Button onClick={handleNextQuestion}>
+           <Button onClick={handleManualNext}>
              {currentQuestionIndex === mcqQuestions.length - 1 ? "Proceed to Coding Section" : "Next Question"}
            </Button>
          </CardFooter>
@@ -203,7 +201,7 @@ export default function ExamClient({ examId }: { examId: string }) {
                              <CardTitle className="font-headline text-2xl flex items-center gap-2"><Code /> Coding Challenge</CardTitle>
                              <CardDescription>20 Marks</CardDescription>
                          </div>
-                         <Timer initialTime={3600} onTimeUp={handleTimeUp} key={status} />
+                         <Timer initialTime={600} onTimeUp={handleCodingTimeUp} playSound={true} key={status} />
                      </div>
                  </CardHeader>
                  <CardContent className="flex flex-1 flex-col space-y-4">
