@@ -79,7 +79,9 @@ export default function FacultyDashboard() {
                         <CardDescription>Schedule new exams and manage results.</CardDescription>
                     </CardHeader>
                     <CardContent className="flex gap-4">
-                        <Button>Schedule New Exam</Button>
+                        <Button asChild>
+                            <Link href="/faculty/schedule">Schedule New Exam</Link>
+                        </Button>
                         <Button variant="secondary">Publish Results</Button>
                     </CardContent>
                 </Card>
