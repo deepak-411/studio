@@ -7,7 +7,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 
 type MarksheetProps = {
     studentName: string;
@@ -35,7 +34,9 @@ export default function Marksheet({
     const [currentDate, setCurrentDate] = React.useState("");
 
     React.useEffect(() => {
-        setCurrentDate(new Date().toLocaleDateString());
+        if (typeof window !== 'undefined') {
+            setCurrentDate(new Date().toLocaleDateString());
+        }
     }, []);
 
     const grade = (totalObtained / totalMax) >= 0.9 ? 'A1' : (totalObtained / totalMax) >= 0.8 ? 'A2' : (totalObtained / totalMax) >= 0.7 ? 'B1' : 'B2';
