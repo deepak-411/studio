@@ -70,3 +70,22 @@
     background-attachment: fixed;
   }
 }
+
+@media print {
+  body {
+    background-image: none !important;
+    background-color: #ffffff !important;
+  }
+  .printable-content {
+    color: #000000 !important;
+  }
+  .printable-content * {
+    color: #000000 !important;
+  }
+  .printable-content .text-primary {
+     color: #0d3b66 !important;
+  }
+   .printable-content .mix-blend-darken {
+    mix-blend-mode: normal;
+  }
+}
