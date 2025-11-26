@@ -1,3 +1,4 @@
+
 "use client";
 
 import * as React from "react";
@@ -6,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 type MarksheetProps = {
     studentName: string;
@@ -38,7 +40,7 @@ export default function Marksheet({
 
     const grade = (totalObtained / totalMax) >= 0.9 ? 'A1' : (totalObtained / totalMax) >= 0.8 ? 'A2' : (totalObtained / totalMax) >= 0.7 ? 'B1' : 'B2';
   return (
-    <Card className="max-w-4xl mx-auto border-2 border-primary shadow-2xl print:shadow-none print:border-none">
+    <Card className="max-w-4xl mx-auto border-2 border-primary shadow-2xl print:shadow-none print:border-none bg-white text-black printable-content">
         <CardContent className="p-8 md:p-12">
             <header className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="order-2 sm:order-1 text-center sm:text-left">
@@ -48,7 +50,9 @@ export default function Marksheet({
                     <p className="text-muted-foreground">Academic Session: 2024-2025</p>
                 </div>
                 <div className="order-1 sm:order-2">
-                    <Logo />
+                    <div className="bg-white rounded-full">
+                        <Logo />
+                    </div>
                 </div>
             </header>
 
@@ -121,3 +125,5 @@ export default function Marksheet({
     </Card>
   )
 }
+
+    
