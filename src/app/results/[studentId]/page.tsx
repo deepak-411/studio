@@ -4,12 +4,16 @@ import Marksheet from "@/components/results/Marksheet";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Printer } from "lucide-react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
-export default function ResultPage({ params }: { params: { studentId: string }}) {
+export default function ResultPage() {
+    const params = useParams();
+    const studentId = params.studentId as string;
+
     // Mock data for a student
     const studentResult = {
         name: "Jane Doe",
-        rollNumber: params.studentId,
+        rollNumber: studentId,
         class: "10",
         section: "A",
         exam: "Mid-Term Examination 2024",
