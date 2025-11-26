@@ -1,10 +1,19 @@
 
+'use client';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookCopy, CheckSquare, Presentation, User } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { getStoredExam, type ScheduledExam } from "@/lib/exam-store";
 
 export default function FacultyDashboard() {
+  const [activeExam, setActiveExam] = useState<ScheduledExam | null>(null);
+
+  useEffect(() => {
+    setActiveExam(getStoredExam());
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
        <header className="sticky top-0 z-50 w-full border-b bg-card/80 shadow-sm backdrop-blur">
@@ -46,8 +55,10 @@ export default function FacultyDashboard() {
                             <Presentation className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">1</div>
-                            <p className="text-xs text-muted-foreground">Robotics & AI - Mid Term</p>
+                            <div className="text-2xl font-bold">{activeExam ? 1 : 0}</div>
+                             <p className="text-xs text-muted-foreground truncate">
+                                {activeExam ? `Class ${activeExam.selectedClass}-${activeExam.selectedSection} | Set ${activeExam.selectedSet}` : 'No active exam'}
+                            </p>
                         </CardContent>
                     </Card>
                     <Card>

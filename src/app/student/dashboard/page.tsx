@@ -1,10 +1,19 @@
-import Header from "@/components/Header";
+
+'use client';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen, Trophy } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { getStoredExam, type ScheduledExam } from "@/lib/exam-store";
 
 export default function StudentDashboard() {
+  const [activeExam, setActiveExam] = useState<ScheduledExam | null>(null);
+
+  useEffect(() => {
+    setActiveExam(getStoredExam());
+  }, []);
+
   // Mock student data
   const student = {
     name: "Jane Doe",
@@ -65,15 +74,15 @@ export default function StudentDashboard() {
                                 <BookOpen className="text-primary"/>
                                 Available Exam
                             </CardTitle>
-                            <CardDescription>Mid-Term Robotics & AI Exam</CardDescription>
+                            <CardDescription>{activeExam ? `Class ${activeExam.selectedClass} - Set ${activeExam.selectedSet}` : 'No exam scheduled'}</CardDescription>
                         </CardHeader>
                         <CardContent>
                            <p><strong>Duration:</strong> 1 Hour</p>
                            <p><strong>Questions:</strong> 30 MCQs + 1 Coding</p>
                         </CardContent>
                         <CardFooter>
-                            <Button asChild className="w-full">
-                                <Link href="/exam/1">Start Exam</Link>
+                            <Button asChild className="w-full" disabled={!activeExam}>
+                                <Link href={activeExam ? `/exam/${activeExam.selectedSet}` : '#'}>Start Exam</Link>
                             </Button>
                         </CardFooter>
                     </Card>

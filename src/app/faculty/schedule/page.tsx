@@ -9,12 +9,15 @@ import { questions } from '@/lib/questions';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, Download } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { storeExam } from '@/lib/exam-store';
 
 export default function ScheduleExamPage() {
   const [selectedClass, setSelectedClass] = useState('');
   const [selectedSection, setSelectedSection] = useState('');
   const [selectedSet, setSelectedSet] = useState('');
   const { toast } = useToast();
+  const router = useRouter();
 
   const handleSchedule = () => {
     if (!selectedClass || !selectedSection || !selectedSet) {
@@ -25,11 +28,15 @@ export default function ScheduleExamPage() {
       });
       return;
     }
-    // Logic to schedule the exam would go here
+    
+    storeExam({ selectedClass, selectedSection, selectedSet });
+
     toast({
       title: 'Exam Scheduled!',
       description: `Exam for Class ${selectedClass}-${selectedSection} with Set ${selectedSet} has been scheduled.`,
     });
+
+    router.push('/faculty/dashboard');
   };
 
   const handleDownload = async () => {

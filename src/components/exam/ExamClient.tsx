@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { questions, type Question } from "@/lib/questions";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,23 +34,36 @@ export default function ExamClient({ examId }: { examId: string }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [codingAnswer, setCodingAnswer] = useState("");
-  const [timeLeft, setTimeLeft] = useState(60);
   const { toast } = useToast();
 
   useEffect(() => {
-    // Shuffle questions and take 30 for the MCQ part
-    const allQuestions = shuffleArray(questions);
-    const roboticsQuestions = allQuestions.filter(q => q.topic === 'Robotics').slice(0, 10);
-    const webDevQuestions = allQuestions.filter(q => ['HTML', 'CSS', 'JavaScript'].includes(q.topic)).slice(0, 20);
-    const examQuestions = shuffleArray([...roboticsQuestions, ...webDevQuestions]);
+    const questionSetIndex = parseInt(examId, 10) - 1;
+    if (isNaN(questionSetIndex) || questionSetIndex < 0 || questionSetIndex >= 8) {
+        // Handle invalid examId, maybe redirect or show an error
+        console.error("Invalid exam set ID");
+        setMcqQuestions([]);
+        setStatus("submitted"); // Or an error state
+        return;
+    }
     
-    setMcqQuestions(examQuestions);
+    const questionsPerSet = 30;
+    const start = questionSetIndex * questionsPerSet;
+    const end = start + questionsPerSet;
+    
+    // Ensure we have enough questions
+    if (questions.length < end) {
+        console.error("Not enough questions in the question bank for all sets.");
+        // Fallback or error handling
+        setMcqQuestions(shuffleArray(questions).slice(0, 30));
+    } else {
+        const examQuestions = questions.slice(start, end);
+        setMcqQuestions(shuffleArray(examQuestions));
+    }
+    
     setStatus("mcq");
-  }, []);
+  }, [examId]);
 
-  const currentQuestion = useMemo(() => {
-    return mcqQuestions[currentQuestionIndex];
-  }, [currentQuestionIndex, mcqQuestions]);
+  const currentQuestion = mcqQuestions[currentQuestionIndex];
 
   const handleNextQuestion = () => {
     if (!answers[currentQuestion.id]) {
@@ -63,26 +77,18 @@ export default function ExamClient({ examId }: { examId: string }) {
 
     if (currentQuestionIndex < mcqQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setTimeLeft(60);
     } else {
       setStatus("coding");
-      setTimeLeft(1200); // 20 minutes for coding question
     }
   };
 
   const handleTimeUp = () => {
     toast({
       title: "Time's up!",
-      description: "Moving to the next question.",
+      description: "Moving to the next section or submitting.",
     });
     if (status === "mcq") {
-      if (currentQuestionIndex < mcqQuestions.length - 1) {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-        setTimeLeft(60);
-      } else {
-        setStatus("coding");
-        setTimeLeft(1200);
-      }
+      setStatus("coding");
     } else if (status === 'coding') {
         handleSubmitExam();
     }
@@ -115,7 +121,14 @@ export default function ExamClient({ examId }: { examId: string }) {
   };
 
   if (status === "loading" || !currentQuestion) {
-    return <div className="flex h-screen items-center justify-center"><p>Loading Exam...</p></div>;
+    return (
+        <div className="flex h-screen items-center justify-center">
+            <div className="flex flex-col items-center space-y-4">
+                 <p className="text-lg">Loading Exam...</p>
+                 <Progress value={50} className="w-64 animate-pulse" />
+            </div>
+        </div>
+    );
   }
   
   if (status === "submitted") {
@@ -139,77 +152,76 @@ export default function ExamClient({ examId }: { examId: string }) {
     )
   }
 
-  if (status === "coding") {
-    return (
-        <div className="flex h-screen w-screen flex-col">
-             <Card className="flex h-full w-full flex-col rounded-none border-0">
-                <CardHeader>
-                    <div className="flex justify-between items-center">
-                        <div>
-                            <CardTitle className="font-headline text-2xl flex items-center gap-2"><Code /> Coding Challenge</CardTitle>
-                            <CardDescription>20 Marks</CardDescription>
-                        </div>
-                        <Timer initialTime={1200} onTimeUp={handleTimeUp} />
-                    </div>
-                </CardHeader>
-                <CardContent className="flex flex-1 flex-col space-y-4">
-                    <p className="font-semibold">Question: Write HTML and CSS code to display your school name, your name, subject, and marks.</p>
-                    <Textarea 
-                        placeholder="Write your code here..." 
-                        className="font-code flex-1 bg-muted/50"
-                        value={codingAnswer}
-                        onChange={(e) => setCodingAnswer(e.target.value)}
-                    />
-                </CardContent>
-                <CardFooter className="justify-between border-t pt-4">
-                    <Button variant="secondary">Run Code (Mock)</Button>
-                    <Button onClick={handleSubmitExam}>Submit Exam <Send className="ml-2"/></Button>
-                </CardFooter>
-             </Card>
-        </div>
-    )
-  }
-
   return (
     <div className="flex h-screen w-screen flex-col">
-      <Card className="flex h-full w-full flex-col rounded-none border-0">
-        <CardHeader>
-          <div className="flex justify-between items-start">
-            <div>
-              <CardTitle className="font-headline text-3xl">
-                Robotics & AI Exam
-              </CardTitle>
-              <CardDescription>
-                Question {currentQuestionIndex + 1} of {mcqQuestions.length}
-              </CardDescription>
-            </div>
-            <Timer initialTime={60} onTimeUp={handleTimeUp} key={currentQuestionIndex}/>
-          </div>
-          <Progress value={((currentQuestionIndex + 1) / mcqQuestions.length) * 100} className="mt-4" />
-        </CardHeader>
-        <CardContent className="flex-1 overflow-y-auto">
-          <h2 className="text-lg font-semibold mb-6">{currentQuestion.question}</h2>
-          <RadioGroup
-            value={answers[currentQuestion.id] || ""}
-            onValueChange={(value) =>
-              setAnswers({ ...answers, [currentQuestion.id]: value })
-            }
-            className="space-y-4"
-          >
-            {currentQuestion.options.map((option, index) => (
-              <div key={index} className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-muted transition-colors">
-                <RadioGroupItem value={option} id={`option-${index}`} />
-                <Label htmlFor={`option-${index}`} className="flex-1 text-base cursor-pointer">{option}</Label>
-              </div>
-            ))}
-          </RadioGroup>
-        </CardContent>
-        <CardFooter className="justify-end border-t pt-4">
-          <Button onClick={handleNextQuestion}>
-            {currentQuestionIndex === mcqQuestions.length - 1 ? "Proceed to Coding Section" : "Next Question"}
-          </Button>
-        </CardFooter>
-      </Card>
+      {status === 'mcq' && (
+         <Card className="flex h-full w-full flex-col rounded-none border-0">
+         <CardHeader>
+           <div className="flex justify-between items-start">
+             <div>
+               <CardTitle className="font-headline text-3xl">
+                 Mid-Term Examination
+               </CardTitle>
+               <CardDescription>
+                 Question {currentQuestionIndex + 1} of {mcqQuestions.length}
+               </CardDescription>
+             </div>
+             <Timer initialTime={3600} onTimeUp={handleTimeUp} key={status}/>
+           </div>
+           <Progress value={((currentQuestionIndex + 1) / mcqQuestions.length) * 100} className="mt-4" />
+         </CardHeader>
+         <CardContent className="flex-1 overflow-y-auto">
+           <h2 className="text-lg font-semibold mb-6">{currentQuestion.question}</h2>
+           <RadioGroup
+             value={answers[currentQuestion.id] || ""}
+             onValueChange={(value) =>
+               setAnswers({ ...answers, [currentQuestion.id]: value })
+             }
+             className="space-y-4"
+           >
+             {currentQuestion.options.map((option, index) => (
+               <div key={index} className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-muted transition-colors">
+                 <RadioGroupItem value={option} id={`option-${index}`} />
+                 <Label htmlFor={`option-${index}`} className="flex-1 text-base cursor-pointer">{option}</Label>
+               </div>
+             ))}
+           </RadioGroup>
+         </CardContent>
+         <CardFooter className="justify-end border-t pt-4">
+           <Button onClick={handleNextQuestion}>
+             {currentQuestionIndex === mcqQuestions.length - 1 ? "Proceed to Coding Section" : "Next Question"}
+           </Button>
+         </CardFooter>
+       </Card>
+      )}
+      {status === 'coding' && (
+         <div className="flex h-screen w-screen flex-col">
+              <Card className="flex h-full w-full flex-col rounded-none border-0">
+                 <CardHeader>
+                     <div className="flex justify-between items-center">
+                         <div>
+                             <CardTitle className="font-headline text-2xl flex items-center gap-2"><Code /> Coding Challenge</CardTitle>
+                             <CardDescription>20 Marks</CardDescription>
+                         </div>
+                         <Timer initialTime={3600} onTimeUp={handleTimeUp} key={status} />
+                     </div>
+                 </CardHeader>
+                 <CardContent className="flex flex-1 flex-col space-y-4">
+                     <p className="font-semibold">Question: Write HTML and CSS code to display your school name, your name, subject, and marks.</p>
+                     <Textarea 
+                         placeholder="Write your code here..." 
+                         className="font-code flex-1 bg-muted/50"
+                         value={codingAnswer}
+                         onChange={(e) => setCodingAnswer(e.target.value)}
+                     />
+                 </CardContent>
+                 <CardFooter className="justify-between border-t pt-4">
+                     <Button variant="secondary">Run Code (Mock)</Button>
+                     <Button onClick={handleSubmitExam}>Submit Exam <Send className="ml-2"/></Button>
+                 </CardFooter>
+              </Card>
+         </div>
+      )}
     </div>
   );
 }
