@@ -359,8 +359,358 @@ export const questions: Question[] = [
     answer: "To provide a pluggable power output",
     topic: "Robotics"
   },
+  {
+    id: 51,
+    question: "A mini-breadboard typically has how many pins?",
+    options: ["100", "400", "800", "1200"],
+    answer: "400",
+    topic: "Robotics"
+  },
+  {
+    id: 52,
+    question: "Which Arduino board is described as small, sustainable, and flexible?",
+    options: ["UNO", "Mega", "Nano", "Due"],
+    answer: "Nano",
+    topic: "Robotics"
+  },
+  {
+    id: 53,
+    question: "What does the VIN pin on an Arduino stand for?",
+    options: ["Variable Input", "Voltage In", "Verified Input", "Voltage Internal"],
+    answer: "Voltage In",
+    topic: "Robotics"
+  },
+  {
+    id: 54,
+    question: "What is the primary danger of overcharging a battery?",
+    options: ["It loses its color", "It can get damaged or explode", "It becomes non-rechargeable", "It reverses polarity"],
+    answer: "It can get damaged or explode",
+    topic: "Robotics"
+  },
+  {
+    id: 55,
+    question: "A normal-sized breadboard usually has how many pins?",
+    options: ["400", "600", "800", "1000"],
+    answer: "800",
+    topic: "Robotics"
+  },
+  {
+    id: 56,
+    question: "What tool is used to strip insulation from hook-up wires?",
+    options: ["Pliers", "Wire stripper plier", "Scissors", "A knife"],
+    answer: "Wire stripper plier",
+    topic: "Robotics"
+  },
+  {
+    id: 57,
+    question: "What does 'ICSP' on an Arduino UNO board stand for?",
+    options: ["Internal Circuit Signal Processor", "In-Circuit Serial Programming", "Integrated Chip System Power", "Internal Component Soldering Point"],
+    answer: "In-Circuit Serial Programming",
+    topic: "Robotics"
+  },
+  {
+    id: 58,
+    question: "Which component is used in cameras and fans to store and release energy quickly?",
+    options: ["Resistor", "Diode", "Transistor", "Capacitor"],
+    answer: "Capacitor",
+    topic: "Robotics"
+  },
+  {
+    id: 59,
+    question: "What is the recommended input voltage for an Arduino UNO?",
+    options: ["5V", "3.3V", "7-12V", "6-20V"],
+    answer: "7-12V",
+    topic: "Robotics"
+  },
+  {
+    id: 60,
+    question: "What does 'BO' in BO motor stand for?",
+    options: ["Bolt-On", "Back-Oriented", "Battery Operated", "Base Output"],
+    answer: "Battery Operated",
+    topic: "Robotics"
+  },
+  {
+    id: 61,
+    question: "In the context of the text, what is a 'perf board'?",
+    options: ["A mini breadboard", "A board for performance testing", "A solderable board (DOT PCB)", "A type of Arduino"],
+    answer: "A solderable board (DOT PCB)",
+    topic: "Robotics"
+  },
+  {
+    id: 62,
+    question: "What is a safety measure for alligator connectors?",
+    options: ["Only use them on soft materials", "Don’t touch the metallic jaw when at high voltage", "Always use them for permanent connections", "Solder them for better contact"],
+    answer: "Don’t touch the metallic jaw when at high voltage",
+    topic: "Robotics"
+  },
+  {
+    id: 63,
+    question: "Arduino is an open-source platform based on easy-to-use hardware and ______.",
+    options: ["software", "firmware", "shareware", "adware"],
+    answer: "software",
+    topic: "Robotics"
+  },
+  {
+    id: 64,
+    question: "How many digital I/O pins does an Arduino UNO have?",
+    options: ["6", "8", "14", "20"],
+    answer: "14",
+    topic: "Robotics"
+  },
+  {
+    id: 65,
+    question: "What is the clock speed of the Arduino UNO's microcontroller?",
+    options: ["8 MHz", "16 MHz", "20 MHz", "100 MHz"],
+    answer: "16 MHz",
+    topic: "Robotics"
+  },
+  {
+    id: 66,
+    question: "What is the amount of flash memory in an Arduino UNO?",
+    options: ["16 KB", "32 KB", "64 KB", "128 KB"],
+    answer: "32 KB",
+    topic: "Robotics"
+  },
+  {
+    id: 67,
+    question: "What is the purpose of the USB to Serial chip on an Arduino?",
+    options: ["To power the board", "To translate data between the computer and microcontroller", "To store the program", "To connect to Wi-Fi"],
+    answer: "To translate data between the computer and microcontroller",
+    topic: "Robotics"
+  },
+  {
+    id: 68,
+    question: "What should you do if a rechargeable battery is exhausted?",
+    options: ["Throw it away", "Charge it", "Connect it to a higher voltage source", "Shake it vigorously"],
+    answer: "Charge it",
+    topic: "Robotics"
+  },
+  {
+    id: 69,
+    question: "What is the main advantage of a DC Geared motor?",
+    options: ["High speed", "High torque", "Low noise", "Small size"],
+    answer: "High torque",
+    topic: "Robotics"
+  },
+  {
+    id: 70,
+    question: "What happens when you reverse the polarity of a DC motor's connection?",
+    options: ["The motor stops", "The motor's speed increases", "The motor's direction of rotation reverses", "The motor gets damaged"],
+    answer: "The motor's direction of rotation reverses",
+    topic: "Robotics"
+  },
+  {
+    id: 71,
+    question: "Which type of motor is best for applications requiring precise angular position control?",
+    options: ["DC Motor", "Servo Motor", "BO Motor", "Stepper Motor"],
+    answer: "Servo Motor",
+    topic: "Robotics"
+  },
+  {
+    id: 72,
+    question: "What is the function of the 'Base' terminal in a transistor?",
+    options: ["It is the negative lead", "It is the positive lead", "It activates the transistor", "It collects the current"],
+    answer: "It activates the transistor",
+    topic: "Robotics"
+  },
+  {
+    id: 73,
+    question: "What is the primary material used to make solderable boards (perf boards)?",
+    options: ["Plastic", "Aluminum", "Phenolic", "Fiberglass"],
+    answer: "Phenolic",
+    topic: "Robotics"
+  },
+  {
+    id: 74,
+    question: "A 'berg strip' is another name for a...",
+    options: ["Jumper wire", "Resistor", "Pin header", "Diode"],
+    answer: "Pin header",
+    topic: "Robotics"
+  },
+  {
+    id: 75,
+    question: "Which type of jumper cable end can be plugged directly into a breadboard hole?",
+    options: ["Male end", "Female end", "Alligator end", "Clipped end"],
+    answer: "Male end",
+    topic: "Robotics"
+  },
+  {
+    id: 76,
+    question: "What is a major safety concern when working with batteries?",
+    options: ["Storing them in the cold", "Dropping them", "Overcharging them", "Using them with LEDs"],
+    answer: "Overcharging them",
+    topic: "Robotics"
+  },
+  {
+    id: 77,
+    question: "The power rails on a breadboard are typically used for what?",
+    options: ["Connecting ICs", "Providing power and ground", "Connecting signal wires", "Holding screws"],
+    answer: "Providing power and ground",
+    topic: "Robotics"
+  },
+  {
+    id: 78,
+    question: "What does the 'GND' pin on an Arduino signify?",
+    options: ["General N-type Diode", "Generated Node", "Ground (0 volts)", "Green LED"],
+    answer: "Ground (0 volts)",
+    topic: "Robotics"
+  },
+  {
+    id: 79,
+    question: "The Arduino IDE uses a programming language based on...",
+    options: ["Python", "Java", "Wiring", "Assembly"],
+    answer: "Wiring",
+    topic: "Robotics"
+  },
+  {
+    id: 80,
+    question: "How much SRAM does the Arduino UNO have?",
+    options: ["1 KB", "2 KB", "4 KB", "8 KB"],
+    answer: "2 KB",
+    topic: "Robotics"
+  },
+  {
+    id: 81,
+    question: "Which component allows current to flow in only one direction?",
+    options: ["Resistor", "Capacitor", "Diode", "Transistor"],
+    answer: "Diode",
+    topic: "Robotics"
+  },
+  {
+    id: 82,
+    question: "What is a common application for a capacitor?",
+    options: ["Reducing current", "Amplifying signals", "Storing and releasing charge", "Generating light"],
+    answer: "Storing and releasing charge",
+    topic: "Robotics"
+  },
+  {
+    id: 83,
+    question: "If you want to make a permanent circuit, which of these is the best choice?",
+    options: ["Breadboard", "Alligator clips", "Solderable board (DOT PCB)", "Jumper cables"],
+    answer: "Solderable board (DOT PCB)",
+    topic: "Robotics"
+  },
+  {
+    id: 84,
+    question: "What does 'PCB' stand for?",
+    options: ["Primary Circuit Base", "Printed Circuit Board", "Processor Control Block", "Power Connection Bus"],
+    answer: "Printed Circuit Board",
+    topic: "Robotics"
+  },
+  {
+    id: 85,
+    question: "What is the negative terminal of an LED called?",
+    options: ["Anode", "Cathode", "Base", "Collector"],
+    answer: "Cathode",
+    topic: "Robotics"
+  },
+  {
+    id: 86,
+    question: "How can you produce the color purple with an RGB LED?",
+    options: ["Turn on only the Red and Green LEDs", "Turn on only the Green and Blue LEDs", "Turn on only the Red and Blue LEDs", "Turn on all three LEDs at full intensity"],
+    answer: "Turn on only the Red and Blue LEDs",
+    topic: "Robotics"
+  },
+  {
+    id: 87,
+    question: "A transistor is considered one of the most important inventions because it acts as a switch and a(n)...",
+    options: ["resistor", "capacitor", "amplifier", "diode"],
+    answer: "amplifier",
+    topic: "Robotics"
+  },
+  {
+    id: 88,
+    question: "What is the typical voltage supplied by the 3.3V pin on an Arduino?",
+    options: ["3.3V", "5V", "7V", "12V"],
+    answer: "3.3V",
+    topic: "Robotics"
+  },
+  {
+    id: 89,
+    question: "What is a 'Li-ion' battery an example of?",
+    options: ["A non-rechargeable battery", "A rechargeable battery", "A type of capacitor", "A type of resistor"],
+    answer: "A rechargeable battery",
+    topic: "Robotics"
+  },
+  {
+    id: 90,
+    question: "A resistor's primary purpose is to create electrical...",
+    options: ["capacitance", "inductance", "resistance", "conductance"],
+    answer: "resistance",
+    topic: "Robotics"
+  },
+  {
+    id: 91,
+    question: "Which Arduino board is the smallest in the text's list?",
+    options: ["UNO", "Mega", "Nano", "It is not specified"],
+    answer: "Nano",
+    topic: "Robotics"
+  },
+  {
+    id: 92,
+    question: "What tool is essential for working with a 'DOT PCB' that isn't used with a breadboard?",
+    options: ["Pliers", "Wire strippers", "Soldering iron", "Screwdriver"],
+    answer: "Soldering iron",
+    topic: "Robotics"
+  },
+  {
+    id: 93,
+    question: "What is the main feature of an alligator connector?",
+    options: ["It solders wires together", "It has jaws for temporary clipping", "It fits into a breadboard", "It can only be used with batteries"],
+    answer: "It has jaws for temporary clipping",
+    topic: "Robotics"
+  },
+  {
+    id: 94,
+    question: "What does 'I/O' in 'Digital I/O Pins' stand for?",
+    options: ["Internal/Output", "Input/Output", "Integrated/Oscillator", "Inductor/Operator"],
+    answer: "Input/Output",
+    topic: "Robotics"
+  },
+  {
+    id: 95,
+    question: "What is the function of a 'bootloader' on an Arduino?",
+    options: ["It powers the board", "It's a small program that allows uploading code without extra hardware", "It regulates the voltage", "It connects the board to the internet"],
+    answer: "It's a small program that allows uploading code without extra hardware",
+    topic: "Robotics"
+  },
+  {
+    id: 96,
+    question: "How many analog input pins are on an Arduino UNO?",
+    options: ["4", "6", "8", "14"],
+    answer: "6",
+    topic: "Robotics"
+  },
+  {
+    id: 97,
+    question: "What is a common use for resistors in an LED circuit?",
+    options: ["To make the light brighter", "To change the color of the light", "To limit the current and prevent the LED from burning out", "To make the LED blink"],
+    answer: "To limit the current and prevent the LED from burning out",
+    topic: "Robotics"
+  },
+  {
+    id: 98,
+    question: "In a capacitor, energy is stored in a(n) ______ field.",
+    options: ["magnetic", "gravitational", "nuclear", "electric"],
+    answer: "electric",
+    topic: "Robotics"
+  },
+  {
+    id: 99,
+    question: "The wheels provided with BO motors are typically...",
+    options: ["permanently attached", "detachable", "made of metal", "magnetic"],
+    answer: "detachable",
+    topic: "Robotics"
+  },
+  {
+    id: 100,
+    question: "What is a common safety tip for using transistors?",
+    options: ["Always connect them backwards first", "Don't use voltages higher than their specified limits", "Touch all three leads at once to test them", "Cool them with water"],
+    answer: "Don't use voltages higher than their specified limits",
+    topic: "Robotics"
+  },
 
-  // --- HTML/CSS/JS Questions (Generic but based on common knowledge implied by syllabus) ---
+  // --- HTML/CSS/JS Questions ---
   {
     id: 101,
     question: "What does HTML stand for?",
@@ -394,7 +744,7 @@ export const questions: Question[] = [
     question: "What does CSS stand for?",
     options: ["Creative Style Sheets", "Cascading Style Sheets", "Computer Style Sheets", "Colorful Style Sheets"],
     answer: "Cascading Style Sheets",
-    topic: "CSS"
+topic: "CSS"
   },
   {
     id: 106,
@@ -571,30 +921,6 @@ export const questions: Question[] = [
     answer: "font-family",
     topic: "CSS"
   },
-  // Add more unique questions to ensure 240+ total
-  // ... continue adding unique Robotics questions
-  {
-    id: 51,
-    question: "A mini-breadboard typically has how many pins?",
-    options: ["100", "400", "800", "1200"],
-    answer: "400",
-    topic: "Robotics"
-  },
-  {
-    id: 52,
-    question: "Which Arduino board is described as small, sustainable, and flexible?",
-    options: ["UNO", "Mega", "Nano", "Due"],
-    answer: "Nano",
-    topic: "Robotics"
-  },
-  {
-    id: 53,
-    question: "What does the VIN pin on an Arduino stand for?",
-    options: ["Variable Input", "Voltage In", "Verified Input", "Voltage Internal"],
-    answer: "Voltage In",
-    topic: "Robotics"
-  },
-  // ... continue adding unique HTML questions
   {
     id: 131,
     question: "Which HTML element defines the title of a document?",
@@ -609,7 +935,6 @@ export const questions: Question[] = [
     answer: "<body>",
     topic: "HTML"
   },
-  // ... continue adding unique CSS questions
   {
     id: 133,
     question: "How do you add a background color for all <h1> elements in CSS?",
@@ -624,7 +949,6 @@ export const questions: Question[] = [
     answer: "margin-left",
     topic: "CSS"
   },
-  // ... continue adding unique JavaScript questions
   {
     id: 135,
     question: "What is the correct way to write a JavaScript array?",
@@ -639,45 +963,732 @@ export const questions: Question[] = [
     answer: "Math.round(7.25)",
     topic: "JavaScript"
   },
-  // Keep generating until you have at least 240 questions.
-  // The following is a continuation to reach the target number.
-  { id: 54, question: "What is the primary danger of overcharging a battery?", options: ["It loses its color", "It can get damaged or explode", "It becomes non-rechargeable", "It reverses polarity"], answer: "It can get damaged or explode", topic: "Robotics" },
-  { id: 55, question: "A normal-sized breadboard usually has how many pins?", options: ["400", "600", "800", "1000"], answer: "800", topic: "Robotics" },
-  { id: 56, question: "What tool is used to strip insulation from hook-up wires?", options: ["Pliers", "Wire stripper plier", "Scissors", "A knife"], answer: "Wire stripper plier", topic: "Robotics" },
-  { id: 57, question: "What does 'ICSP' on an Arduino UNO board stand for?", options: ["Internal Circuit Signal Processor", "In-Circuit Serial Programming", "Integrated Chip System Power", "Internal Component Soldering Point"], answer: "In-Circuit Serial Programming", topic: "Robotics" },
-  { id: 58, question: "Which component is used in cameras and fans to store and release energy quickly?", options: ["Resistor", "Diode", "Transistor", "Capacitor"], answer: "Capacitor", topic: "Robotics" },
-  { id: 59, question: "What is the recommended input voltage for an Arduino UNO?", options: ["5V", "3.3V", "7-12V", "6-20V"], answer: "7-12V", topic: "Robotics" },
-  { id: 60, question: "What does 'BO' in BO motor stand for?", options: ["Bolt-On", "Back-Oriented", "Battery Operated", "Base Output"], answer: "Battery Operated", topic: "Robotics" },
-  { id: 137, question: "Which tag is used to display an image in HTML?", options: ["<img>", "<pic>", "<image>", "<picture>"], answer: "<img>", topic: "HTML" },
-  { id: 138, question: "What attribute is required for an <img> tag?", options: ["href", "alt", "src", "link"], answer: "src", topic: "HTML" },
-  { id: 139, question: "Which tag defines the most important heading?", options: ["<h6>", "<heading>", "<h1>", "<head>"], answer: "<h1>", topic: "HTML" },
-  { id: 140, question: "Which tag is used to define a paragraph?", options: ["<paragraph>", "<p>", "<para>", "<text>"], answer: "<p>", topic: "HTML" },
-  { id: 141, question: "Which CSS property defines the space between letters?", options: ["letter-spacing", "spacing", "font-spacing", "character-spacing"], answer: "letter-spacing", topic: "CSS" },
-  { id: 142, question: "How do you make each word in a text start with a capital letter using CSS?", options: ["text-transform: capitalize;", "text-style: capitalize;", "transform: capitalize;", "font-transform: capitalize;"], answer: "text-transform: capitalize;", topic: "CSS" },
-  { id: 143, question: "Which property is used to control the space between the element's border and its content?", options: ["margin", "spacing", "padding", "border-spacing"], answer: "padding", topic: "CSS" },
-  { id: 144, question: "How do you group selectors in CSS?", options: ["Separate each selector with a comma", "Separate each selector with a plus sign", "Separate each selector with a space", "You cannot group selectors"], answer: "Separate each selector with a comma", topic: "CSS" },
-  { id: 145, question: "Which event occurs when the user clicks on an HTML element in JavaScript?", options: ["onmouseover", "onchange", "onclick", "onmouseclick"], answer: "onclick", topic: "JavaScript" },
-  { id: 146, question: "How can you add a comment in JavaScript?", options: ["<!--This is a comment-->", "'This is a comment", "//This is a comment", "/*This is a comment*/"], answer: "//This is a comment", topic: "JavaScript" },
-  { id: 147, question: "How can you find the number with the highest value of x and y?", options: ["Math.max(x, y)", "ceil(x, y)", "top(x, y)", "Math.ceil(x, y)"], answer: "Math.max(x, y)", topic: "JavaScript" },
-  { id: 148, question: "What is the correct way to end a JavaScript statement?", options: ["A period (.)", "A colon (:)", "A semicolon (;)", "A comma (,)"], answer: "A semicolon (;)", topic: "JavaScript" },
-  { id: 61, question: "In the context of the text, what is a 'perf board'?", options: ["A mini breadboard", "A board for performance testing", "A solderable board (DOT PCB)", "A type of Arduino"], answer: "A solderable board (DOT PCB)", topic: "Robotics" },
-  { id: 62, question: "What is a safety measure for alligator connectors?", options: ["Only use them on soft materials", "Don’t touch the metallic jaw when at high voltage", "Always use them for permanent connections", "Solder them for better contact"], answer: "Don’t touch the metallic jaw when at high voltage", topic: "Robotics" },
-  { id: 63, question: "Arduino is an open-source platform based on easy-to-use hardware and ______.", options: ["software", "firmware", "shareware", "adware"], answer: "software", topic: "Robotics" },
-  { id: 64, question: "How many digital I/O pins does an Arduino UNO have?", options: ["6", "8", "14", "20"], answer: "14", topic: "Robotics" },
-  { id: 65, question: "What is the clock speed of the Arduino UNO's microcontroller?", options: ["8 MHz", "16 MHz", "20 MHz", "100 MHz"], answer: "16 MHz", topic: "Robotics" },
-  { id: 149, question: "In HTML, which attribute is used to provide an alternative text for an image, if the image cannot be displayed?", options: ["title", "src", "longdesc", "alt"], answer: "alt", topic: "HTML" },
-  { id: 150, question: "Which doctype is correct for HTML5?", options: ["<!DOCTYPE html>", "<!DOCTYPE HTML5>", "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 5.0//EN'>", "<!DOCTYPE HTML V5>"], answer: "<!DOCTYPE html>", topic: "HTML" },
-  { id: 151, question: "Which CSS property is used to create space around elements, outside of any defined borders?", options: ["padding", "border", "margin", "spacing"], answer: "margin", topic: "CSS" },
-  { id: 152, question: "In CSS, what is the correct way to select all <p> elements inside a <div> element?", options: ["div + p", "div p", "div > p", "div.p"], answer: "div p", topic: "CSS" },
-  { id: 153, question: "Which built-in JavaScript method returns the length of a string?", options: ["size()", "length", "index", "count()"], answer: "length", topic: "JavaScript" },
-  { id: 154, question: "Which of the following is not a reserved word in JavaScript?", options: ["interface", "throws", "program", "short"], answer: "program", topic: "JavaScript" },
-  { id: 66, question: "What is the amount of flash memory in an Arduino UNO?", options: ["16 KB", "32 KB", "64 KB", "128 KB"], answer: "32 KB", topic: "Robotics" },
-  { id: 67, question: "What is the purpose of the USB to Serial chip on an Arduino?", options: ["To power the board", "To translate data between the computer and microcontroller", "To store the program", "To connect to Wi-Fi"], answer: "To translate data between the computer and microcontroller", topic: "Robotics" },
-  { id: 68, question: "What should you do if a rechargeable battery is exhausted?", options: ["Throw it away", "Charge it", "Connect it to a higher voltage source", "Shake it vigorously"], answer: "Charge it", topic: "Robotics" },
-  { id: 155, question: "Which HTML tag is used to create a form?", options: ["<form>", "<input>", "<formdata>", "<fieldset>"], answer: "<form>", topic: "HTML" },
-  { id: 156, question: "How can you open a link in a new tab/browser window?", options: ["<a href='url' new>", "<a href='url' target='_blank'>", "<a href='url' target='new'>", "<a href='url' window='new'>"], answer: "<a href='url' target='_blank'>", topic: "HTML" },
-  { id: 157, question: "How do you apply a style to all elements of the same type (e.g., all paragraphs)?", options: ["ID Selector", "Class Selector", "Universal Selector (*)", "Type Selector (e.g., p)"], answer: "Type Selector (e.g., p)", topic: "CSS" },
-  { id: 158, question: "What is the CSS 'box model' composed of?", options: ["Margin, Border, Padding, Content", "Width, Height, Color, Background", "Flexbox, Grid, Position", "Selectors, Properties, Values"], answer: "Margin, Border, Padding, Content", topic: "CSS" },
-  { id: 159, question: "Which of these is a JavaScript data type?", options: ["String", "Number", "Boolean", "All of the above"], answer: "All of the above", topic: "JavaScript" },
-  { id: 160, question: "What keyword is used to define a constant variable in modern JavaScript?", options: ["var", "let", "const", "static"], answer: "const", topic: "JavaScript" }
+  {
+    id: 137,
+    question: "Which tag is used to display an image in HTML?",
+    options: ["<img>", "<pic>", "<image>", "<picture>"],
+    answer: "<img>",
+    topic: "HTML"
+  },
+  {
+    id: 138,
+    question: "What attribute is required for an <img> tag to display the image?",
+    options: ["href", "alt", "src", "link"],
+    answer: "src",
+    topic: "HTML"
+  },
+  {
+    id: 139,
+    question: "Which tag defines the most important heading?",
+    options: ["<h6>", "<heading>", "<h1>", "<head>"],
+    answer: "<h1>",
+    topic: "HTML"
+  },
+  {
+    id: 140,
+    question: "Which tag is used to define a paragraph?",
+    options: ["<paragraph>", "<p>", "<para>", "<text>"],
+    answer: "<p>",
+    topic: "HTML"
+  },
+  {
+    id: 141,
+    question: "Which CSS property defines the space between letters?",
+    options: ["letter-spacing", "spacing", "font-spacing", "character-spacing"],
+    answer: "letter-spacing",
+    topic: "CSS"
+  },
+  {
+    id: 142,
+    question: "How do you make each word in a text start with a capital letter using CSS?",
+    options: ["text-transform: capitalize;", "text-style: capitalize;", "transform: capitalize;", "font-transform: capitalize;"],
+    answer: "text-transform: capitalize;",
+    topic: "CSS"
+  },
+  {
+    id: 143,
+    question: "Which property is used to control the space between the element's border and its content?",
+    options: ["margin", "spacing", "padding", "border-spacing"],
+    answer: "padding",
+    topic: "CSS"
+  },
+  {
+    id: 144,
+    question: "How do you group selectors in CSS?",
+    options: ["Separate each selector with a comma", "Separate each selector with a plus sign", "Separate each selector with a space", "You cannot group selectors"],
+    answer: "Separate each selector with a comma",
+    topic: "CSS"
+  },
+  {
+    id: 145,
+    question: "Which event occurs when the user clicks on an HTML element in JavaScript?",
+    options: ["onmouseover", "onchange", "onclick", "onmouseclick"],
+    answer: "onclick",
+    topic: "JavaScript"
+  },
+  {
+    id: 146,
+    question: "How can you add a single-line comment in JavaScript?",
+    options: ["<!--This is a comment-->", "'This is a comment", "//This is a comment", "/*This is a comment*/"],
+    answer: "//This is a comment",
+    topic: "JavaScript"
+  },
+  {
+    id: 147,
+    question: "How can you find the number with the highest value of x and y in JavaScript?",
+    options: ["Math.max(x, y)", "ceil(x, y)", "top(x, y)", "Math.ceil(x, y)"],
+    answer: "Math.max(x, y)",
+    topic: "JavaScript"
+  },
+  {
+    id: 148,
+    question: "What is the standard way to end a JavaScript statement?",
+    options: ["A period (.)", "A colon (:)", "A semicolon (;)", "A comma (,)"],
+    answer: "A semicolon (;)",
+    topic: "JavaScript"
+  },
+  {
+    id: 149,
+    question: "In HTML, which attribute is used to provide an alternative text for an image if it cannot be displayed?",
+    options: ["title", "src", "longdesc", "alt"],
+    answer: "alt",
+    topic: "HTML"
+  },
+  {
+    id: 150,
+    question: "Which doctype is correct for HTML5?",
+    options: ["<!DOCTYPE html>", "<!DOCTYPE HTML5>", "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 5.0//EN'>", "<!DOCTYPE HTML V5>"],
+    answer: "<!DOCTYPE html>",
+    topic: "HTML"
+  },
+  {
+    id: 151,
+    question: "Which CSS property is used to create space around elements, outside of any defined borders?",
+    options: ["padding", "border", "margin", "spacing"],
+    answer: "margin",
+    topic: "CSS"
+  },
+  {
+    id: 152,
+    question: "In CSS, what is the correct way to select all <p> elements inside a <div> element?",
+    options: ["div + p", "div p", "div > p", "div.p"],
+    answer: "div p",
+    topic: "CSS"
+  },
+  {
+    id: 153,
+    question: "Which built-in JavaScript method returns the length of a string?",
+    options: ["size()", "length", "index", "count()"],
+    answer: "length",
+    topic: "JavaScript"
+  },
+  {
+    id: 154,
+    question: "Which of the following is not a reserved word in JavaScript?",
+    options: ["interface", "throws", "program", "short"],
+    answer: "program",
+    topic: "JavaScript"
+  },
+  {
+    id: 155,
+    question: "Which HTML tag is used to create a form?",
+    options: ["<form>", "<input>", "<formdata>", "<fieldset>"],
+    answer: "<form>",
+    topic: "HTML"
+  },
+  {
+    id: 156,
+    question: "How can you open a link in a new tab/browser window?",
+    options: ["<a href='url' new>", "<a href='url' target='_blank'>", "<a href='url' target='new'>", "<a href='url' window='new'>"],
+    answer: "<a href='url' target='_blank'>",
+    topic: "HTML"
+  },
+  {
+    id: 157,
+    question: "How do you apply a style to all elements of the same type (e.g., all paragraphs)?",
+    options: ["ID Selector", "Class Selector", "Universal Selector (*)", "Type Selector (e.g., p)"],
+    answer: "Type Selector (e.g., p)",
+    topic: "CSS"
+  },
+  {
+    id: 158,
+    question: "What are the four main components of the CSS 'box model'?",
+    options: ["Margin, Border, Padding, Content", "Width, Height, Color, Background", "Flexbox, Grid, Position", "Selectors, Properties, Values"],
+    answer: "Margin, Border, Padding, Content",
+    topic: "CSS"
+  },
+  {
+    id: 159,
+    question: "Which of these are JavaScript data types?",
+    options: ["String", "Number", "Boolean", "All of the above"],
+    answer: "All of the above",
+    topic: "JavaScript"
+  },
+  {
+    id: 160,
+    question: "What keyword is used to define a constant variable in modern JavaScript (ES6)?",
+    options: ["var", "let", "const", "static"],
+    answer: "const",
+    topic: "JavaScript"
+  },
+  {
+    id: 161,
+    question: "Which HTML element contains meta-information about the document?",
+    options: ["<head>", "<body>", "<meta>", "<title>"],
+    answer: "<head>",
+    topic: "HTML"
+  },
+  {
+    id: 162,
+    question: "Which CSS property makes text italic?",
+    options: ["font-style: italic;", "text-decoration: italic;", "font-weight: italic;", "style: italic;"],
+    answer: "font-style: italic;",
+    topic: "CSS"
+  },
+  {
+    id: 163,
+    question: "Which operator is used for strict equality (value and type) in JavaScript?",
+    options: ["==", "===", "=", "!="],
+    answer: "===",
+    topic: "JavaScript"
+  },
+  {
+    id: 164,
+    question: "What does the HTML <br> element represent?",
+    options: ["A bold tag", "A paragraph break", "A line break", "A horizontal rule"],
+    answer: "A line break",
+    topic: "HTML"
+  },
+  {
+    id: 165,
+    question: "In CSS, what does 'color: red;' do?",
+    options: ["Changes the background color to red", "Changes the text color to red", "Changes the border color to red", "Highlights the text in red"],
+    answer: "Changes the text color to red",
+    topic: "CSS"
+  },
+  {
+    id: 166,
+    question: "A block of JavaScript code is enclosed by which characters?",
+    options: ["()", "[]", "{}", "<>"],
+    answer: "{}",
+    topic: "JavaScript"
+  },
+  {
+    id: 167,
+    question: "Which tag is used to define a table row in HTML?",
+    options: ["<td>", "<th>", "<tr>", "<table-row>"],
+    answer: "<tr>",
+    topic: "HTML"
+  },
+  {
+    id: 168,
+    question: "What is the purpose of the 'z-index' property in CSS?",
+    options: ["To set the zoom level of an element", "To set the text alignment", "To control the vertical stacking order of elements", "To set the opacity of an element"],
+    answer: "To control the vertical stacking order of elements",
+    topic: "CSS"
+  },
+  {
+    id: 169,
+    question: "Which method in JavaScript is used to select an HTML element by its ID?",
+    options: ["getElementByName()", "getElementByClass()", "getElementById()", "getElementByTag()"],
+    answer: "getElementById()",
+    topic: "JavaScript"
+  },
+  {
+    id: 170,
+    question: "Which HTML5 element is used to specify a footer for a document or section?",
+    options: ["<bottom>", "<section>", "<footer>", "<end>"],
+    answer: "<footer>",
+    topic: "HTML"
+  },
+  {
+    id: 171,
+    question: "What does `display: none;` do in CSS?",
+    options: ["Makes the element transparent", "Hides the element and removes it from the document flow", "Hides the element but it still takes up space", "Changes the element's color to the background color"],
+    answer: "Hides the element and removes it from the document flow",
+    topic: "CSS"
+  },
+  {
+    id: 172,
+    question: "How do you start a 'for' loop in JavaScript?",
+    options: ["for (i <= 5; i++)", "for i = 1 to 5", "for (i = 0; i < 5; i++)", "for (i from 0 to 5)"],
+    answer: "for (i = 0; i < 5; i++)",
+    topic: "JavaScript"
+  },
+  {
+    id: 173,
+    question: "Which input type is used for a single-line text field in an HTML form?",
+    options: ["<input type='text'>", "<input type='textfield'>", "<input type='line'>", "<textfield>"],
+    answer: "<input type='text'>",
+    topic: "HTML"
+  },
+  {
+    id: 174,
+    question: "How can you apply a style to only one specific element in HTML?",
+    options: ["Using the 'class' attribute", "Using the 'id' attribute with CSS", "Using the 'tag' selector", "Using the 'style' tag in the head"],
+    answer: "Using the 'id' attribute with CSS",
+    topic: "CSS"
+  },
+  {
+    id: 175,
+    question: "What keyword is used to exit a loop in JavaScript?",
+    options: ["exit", "break", "continue", "stop"],
+    answer: "break",
+    topic: "JavaScript"
+  },
+  {
+    id: 176,
+    question: "Which tag is used to embed a video in an HTML page?",
+    options: ["<media>", "<movie>", "<video>", "<src>"],
+    answer: "<video>",
+    topic: "HTML"
+  },
+  {
+    id: 177,
+    question: "Which unit is a relative unit of measurement in CSS?",
+    options: ["cm", "px", "em", "pt"],
+    answer: "em",
+    topic: "CSS"
+  },
+  {
+    id: 178,
+    question: "What does 'NaN' stand for in JavaScript?",
+    options: ["Not a Name", "No and No", "New Age Notation", "Not a Number"],
+    answer: "Not a Number",
+    topic: "JavaScript"
+  },
+  {
+    id: 179,
+    question: "Which HTML attribute is used to define the character set for the document?",
+    options: ["<meta charset='...'>", "<meta characterset='...'>", "<meta encoding='...'>", "<meta set='...'>"],
+    answer: "<meta charset='...'>",
+    topic: "HTML"
+  },
+  {
+    id: 180,
+    question: "What does the 'float' property in CSS do?",
+    options: ["Makes text bold", "Allows an element to be pushed to the left or right, with text wrapping around it", "Makes an element invisible", "Centers an element horizontally"],
+    answer: "Allows an element to be pushed to the left or right, with text wrapping around it",
+    topic: "CSS"
+  },
+  {
+    id: 181,
+    question: "What is the logical AND operator in JavaScript?",
+    options: ["&", "&&", "AND", "|"],
+    answer: "&&",
+    topic: "JavaScript"
+  },
+  {
+    id: 182,
+    question: "Which tag is used to create a dropdown list in HTML?",
+    options: ["<list>", "<dropdown>", "<select>", "<input type='dropdown'>"],
+    answer: "<select>",
+    topic: "HTML"
+  },
+  {
+    id: 183,
+    question: "What is a pseudo-class in CSS?",
+    options: ["A class that does not exist", "A keyword added to a selector that specifies a special state of the selected element(s)", "A class for styling pseudo-elements like ::before", "A class defined in JavaScript"],
+    answer: "A keyword added to a selector that specifies a special state of the selected element(s)",
+    topic: "CSS"
+  },
+  {
+    id: 184,
+    question: "What does the 'this' keyword refer to in JavaScript?",
+    options: ["The current function", "The previous object", "The global window object", "The object it belongs to"],
+    answer: "The object it belongs to",
+    topic: "JavaScript"
+  },
+  {
+    id: 185,
+    question: "Which HTML tag is used to define an email input field?",
+    options: ["<input type='email'>", "<input type='mail'>", "<email>", "<mail>"],
+    answer: "<input type='email'>",
+    topic: "HTML"
+  },
+  {
+    id: 186,
+    question: "Which CSS property is used to set the color of a link when it is being clicked?",
+    options: [":hover", ":active", ":visited", ":link"],
+    answer: ":active",
+    topic: "CSS"
+  },
+  {
+    id: 187,
+    question: "How do you write a multi-line comment in JavaScript?",
+    options: ["// This is a comment", "<!-- This is a comment -->", "/* This is a comment */", "## This is a comment ##"],
+    answer: "/* This is a comment */",
+    topic: "JavaScript"
+  },
+  {
+    id: 188,
+    question: "Which HTML element is used for drawing graphics, on the fly, via scripting?",
+    options: ["<canvas>", "<svg>", "<draw>", "<paint>"],
+    answer: "<canvas>",
+    topic: "HTML"
+  },
+  {
+    id: 189,
+    question: "What does the `rem` unit in CSS refer to?",
+    options: ["The font size of the root element", "The width of the letter 'r'", "The remaining space on the page", "A relative millimeter"],
+    answer: "The font size of the root element",
+    topic: "CSS"
+  },
+  {
+    id: 190,
+    question: "What is the result of `\"5\" + 2` in JavaScript?",
+    options: ["7", "52", "3", "Error"],
+    answer: "52",
+    topic: "JavaScript"
+  },
+  {
+    id: 191,
+    question: "Which HTML tag is used for the smallest heading?",
+    options: ["<h6>", "<h1>", "<h7>", "<small-heading>"],
+    answer: "<h6>",
+    topic: "HTML"
+  },
+  {
+    id: 192,
+    question: "What is the purpose of CSS Flexbox?",
+    options: ["To create animations", "To manage 3D space", "To create one-dimensional page layouts", "To style form inputs"],
+    answer: "To create one-dimensional page layouts",
+    topic: "CSS"
+  },
+  {
+    id: 193,
+    question: "Which JavaScript method converts a string to lowercase?",
+    options: ["toLowerCase()", "toLower()", "convertLowerCase()", "lowerCase()"],
+    answer: "toLowerCase()",
+    topic: "JavaScript"
+  },
+  {
+    id: 194,
+    question: "Which HTML5 element is best for wrapping main navigation links?",
+    options: ["<navigation>", "<nav>", "<menu>", "<links>"],
+    answer: "<nav>",
+    topic: "HTML"
+  },
+  {
+    id: 195,
+    question: "What does the `opacity` property in CSS control?",
+    options: ["The border thickness", "The font size", "The transparency level of an element", "The shadow effect"],
+    answer: "The transparency level of an element",
+    topic: "CSS"
+  },
+  {
+    id: 196,
+    question: "What is JSON?",
+    options: ["A JavaScript function", "A JavaScript library", "A lightweight data-interchange format", "A type of CSS framework"],
+    answer: "A lightweight data-interchange format",
+    topic: "JavaScript"
+  },
+  {
+    id: 197,
+    question: "Which HTML tag is used to define a cell in a table that contains data?",
+    options: ["<td>", "<th>", "<cell>", "<tc>"],
+    answer: "<td>",
+    topic: "HTML"
+  },
+  {
+    id: 198,
+    question: "What is the correct syntax for a CSS Grid layout?",
+    options: ["display: grid;", "display: flex-grid;", "layout: grid;", "grid-layout: true;"],
+    answer: "display: grid;",
+    topic: "CSS"
+  },
+  {
+    id: 199,
+    question: "What does DOM stand for in the context of web development?",
+    options: ["Document Object Model", "Data Object Model", "Document Oriented Markup", "Display Object Management"],
+    answer: "Document Object Model",
+    topic: "JavaScript"
+  },
+  {
+    id: 200,
+    question: "Which HTML tag is used to link to an external CSS file?",
+    options: ["<style>", "<script>", "<link>", "<css>"],
+    answer: "<link>",
+    topic: "HTML"
+  },
+  {
+    id: 201,
+    question: "What does the `box-sizing: border-box;` CSS property do?",
+    options: ["It includes padding and border in the element's total width and height.", "It makes the border box-shaped.", "It adds a shadow to the box.", "It removes the box's border."],
+    answer: "It includes padding and border in the element's total width and height.",
+    topic: "CSS"
+  },
+  {
+    id: 202,
+    question: "Which JavaScript method is used to remove the last element from an array and return that element?",
+    options: ["push()", "pop()", "shift()", "unshift()"],
+    answer: "pop()",
+    topic: "JavaScript"
+  },
+  {
+    id: 203,
+    question: "Which tag is used to create a radio button in an HTML form?",
+    options: ["<input type='radio'>", "<input type='button'>", "<radio>", "<button type='radio'>"],
+    answer: "<input type='radio'>",
+    topic: "HTML"
+  },
+  {
+    id: 204,
+    question: "Which CSS pseudo-element is used to insert content before the content of an element?",
+    options: ["::before", "::after", "::first-line", "::first-letter"],
+    answer: "::before",
+    topic: "CSS"
+  },
+  {
+    id: 205,
+    question: "What is a 'closure' in JavaScript?",
+    options: ["A way to close a browser window", "A function having access to the parent scope, even after the parent function has closed", "The final statement in a code block", "A type of variable"],
+    answer: "A function having access to the parent scope, even after the parent function has closed",
+    topic: "JavaScript"
+  },
+  {
+    id: 206,
+    question: "Which HTML element represents a thematic break in a document, such as a scene change in a story?",
+    options: ["<break>", "<hr>", "<line>", "<separator>"],
+    answer: "<hr>",
+    topic: "HTML"
+  },
+  {
+    id: 207,
+    question: "What does `text-decoration: underline;` do in CSS?",
+    options: ["Adds a line through the text", "Adds a line over the text", "Adds a line under the text", "Makes the text blink"],
+    answer: "Adds a line under the text",
+    topic: "CSS"
+  },
+  {
+    id: 208,
+    question: "What does 'AJAX' stand for?",
+    options: ["Asynchronous JavaScript And XML", "Advanced JavaScript And XHTML", "Automatic JavaScript And XML", "Asynchronous Java And XML"],
+    answer: "Asynchronous JavaScript And XML",
+    topic: "JavaScript"
+  },
+  {
+    id: 209,
+    question: "Which HTML attribute is used to make a form field required?",
+    options: ["required", "validate", "mandatory", "must"],
+    answer: "required",
+    topic: "HTML"
+  },
+  {
+    id: 210,
+    question: "Which property is used to create a 'sticky' positioned element in CSS?",
+    options: ["position: fixed;", "position: absolute;", "position: sticky;", "position: relative;"],
+    answer: "position: sticky;",
+    topic: "CSS"
+  },
+  {
+    id: 211,
+    question: "Which JavaScript function converts a JSON string into a JavaScript object?",
+    options: ["JSON.stringify()", "JSON.parse()", "JSON.object()", "JSON.convert()"],
+    answer: "JSON.parse()",
+    topic: "JavaScript"
+  },
+  {
+    id: 212,
+    question: "Which HTML tag is used to define the main content of a document?",
+    options: ["<main>", "<content>", "<body-content>", "<article>"],
+    answer: "<main>",
+    topic: "HTML"
+  },
+  {
+    id: 213,
+    question: "What is the CSS selector for an element with the attribute `href='example.com'`?",
+    options: ["[href~='example.com']", "[href*='example.com']", "[href='example.com']", "[href^='example.com']"],
+    answer: "[href='example.com']",
+    topic: "CSS"
+  },
+  {
+    id: 214,
+    question: "How do you find the number of elements in an array called `myArray`?",
+    options: ["myArray.count", "myArray.size", "myArray.length", "count(myArray)"],
+    answer: "myArray.length",
+    topic: "JavaScript"
+  },
+  {
+    id: 215,
+    question: "Which HTML tag defines a section of a document?",
+    options: ["<section>", "<div>", "<article>", "<group>"],
+    answer: "<section>",
+    topic: "HTML"
+  },
+  {
+    id: 216,
+    question: "How do you make a border rounded in CSS?",
+    options: ["border-shape: round;", "corner-radius: 10px;", "border-curve: 10px;", "border-radius: 10px;"],
+    answer: "border-radius: 10px;",
+    topic: "CSS"
+  },
+  {
+    id: 217,
+    question: "Which of the following is a 'truthy' value in JavaScript?",
+    options: ["0", "'' (empty string)", "[] (empty array)", "null"],
+    answer: "[] (empty array)",
+    topic: "JavaScript"
+  },
+  {
+    id: 218,
+    question: "What is the purpose of the HTML `<label>` tag?",
+    options: ["To create a large text block", "To define a title for a form", "To provide a caption for an image", "To associate a text label with a form control"],
+    answer: "To associate a text label with a form control",
+    topic: "HTML"
+  },
+  {
+    id: 219,
+    question: "Which CSS display value is commonly used for creating horizontal navigation bars?",
+    options: ["display: block;", "display: inline;", "display: inline-block;", "display: table;"],
+    answer: "display: inline-block;",
+    topic: "CSS"
+  },
+  {
+    id: 220,
+    question: "What does the `Array.prototype.map()` method do?",
+    options: ["It modifies the original array", "It creates a new array with the results of calling a provided function on every element", "It checks if every element in an array passes a test", "It joins all elements of an array into a string"],
+    answer: "It creates a new array with the results of calling a provided function on every element",
+    topic: "JavaScript"
+  },
+  {
+    id: 221,
+    question: "Which HTML element is used to group related elements in a form?",
+    options: ["<group>", "<fieldset>", "<formgroup>", "<section>"],
+    answer: "<fieldset>",
+    topic: "HTML"
+  },
+  {
+    id: 222,
+    question: "What does `!important` do in a CSS rule?",
+    options: ["It highlights the style in developer tools", "It adds a comment to the style", "It makes the style a default value", "It gives the style higher precedence over other conflicting styles"],
+    answer: "It gives the style higher precedence over other conflicting styles",
+    topic: "CSS"
+  },
+  {
+    id: 223,
+    question: "How do you declare an object in JavaScript?",
+    options: ["var myObj = {};", "object myObj = {};", "var myObj = [];", "new object = myObj;"],
+    answer: "var myObj = {};",
+    topic: "JavaScript"
+  },
+  {
+    id: 224,
+    question: "Which HTML tag is used to specify a list of pre-defined options for an `<input>` element?",
+    options: ["<options>", "<list>", "<datalist>", "<select-options>"],
+    answer: "<datalist>",
+    topic: "HTML"
+  },
+  {
+    id: 225,
+    question: "What is the difference between `visibility: hidden` and `display: none` in CSS?",
+    options: ["There is no difference", "`visibility: hidden` hides the element but it still takes up space, `display: none` removes it completely", "`display: none` hides the element but it still takes up space, `visibility: hidden` removes it completely", "They are aliases for each other"],
+    answer: "`visibility: hidden` hides the element but it still takes up space, `display: none` removes it completely",
+    topic: "CSS"
+  },
+  {
+    id: 226,
+    question: "What is an 'arrow function' in JavaScript?",
+    options: ["A function that draws an arrow", "A function that can only be used for math", "A compact alternative to a traditional function expression", "A function that points to another function"],
+    answer: "A compact alternative to a traditional function expression",
+    topic: "JavaScript"
+  },
+  {
+    id: 227,
+    question: "Which HTML tag represents the 'strong importance' of text, typically displayed as bold?",
+    options: ["<b>", "<important>", "<strong>", "<bold>"],
+    answer: "<strong>",
+    topic: "HTML"
+  },
+  {
+    id: 228,
+    question: "Which property is used to align items along the main axis in a flex container?",
+    options: ["align-items", "justify-content", "flex-direction", "align-content"],
+    answer: "justify-content",
+    topic: "CSS"
+  },
+  {
+    id: 229,
+    question: "What does `setTimeout()` do in JavaScript?",
+    options: ["It sets the current time", "It stops the execution of a function", "It calls a function after a specified number of milliseconds", "It sets an interval to call a function repeatedly"],
+    answer: "It calls a function after a specified number of milliseconds",
+    topic: "JavaScript"
+  },
+  {
+    id: 230,
+    question: "Which HTML tag is used to define an abbreviation or an acronym?",
+    options: ["<abbr>", "<acronym>", "<short>", "<def>"],
+    answer: "<abbr>",
+    topic: "HTML"
+  },
+  {
+    id: 231,
+    question: "What is the 'C' in 'HSL' color values in CSS?",
+    options: ["Cyan", "Clarity", "Chroma", "Contrast"],
+    answer: "Chroma",
+    topic: "CSS"
+  },
+  {
+    id: 232,
+    question: "What is 'event bubbling' in the DOM?",
+    options: ["An event animation effect", "An error in the event handler", "The order in which event handlers are called on nested elements, from the innermost to the outermost", "The order in which event handlers are called on nested elements, from the outermost to the innermost"],
+    answer: "The order in which event handlers are called on nested elements, from the innermost to the outermost",
+    topic: "JavaScript"
+  },
+  {
+    id: 233,
+    question: "What is the purpose of the `aria-` attributes in HTML?",
+    options: ["To style elements for printing", "To define regional content", "To improve accessibility for people with disabilities", "To add animations"],
+    answer: "To improve accessibility for people with disabilities",
+    topic: "HTML"
+  },
+  {
+    id: 234,
+    question: "Which CSS property would you use to create a drop shadow effect on a box?",
+    options: ["shadow", "box-shadow", "text-shadow", "element-shadow"],
+    answer: "box-shadow",
+    topic: "CSS"
+  },
+  {
+    id: 235,
+    question: "What does the `...` operator do in JavaScript (ES6)?",
+    options: ["It's a comment syntax", "It's a division operator", "It's a spread/rest operator for arrays and objects", "It's used for string concatenation"],
+    answer: "It's a spread/rest operator for arrays and objects",
+    topic: "JavaScript"
+  },
+  {
+    id: 236,
+    question: "Which HTML tag is used to define emphasized text, typically displayed as italic?",
+    options: ["<i>", "<em>", "<italic>", "<emphasize>"],
+    answer: "<em>",
+    topic: "HTML"
+  },
+  {
+    id: 237,
+    question: "What does a 'media query' in CSS allow you to do?",
+    options: ["Play media files like video and audio", "Apply styles based on device characteristics like width, height, and orientation", "Query the browser for user information", "Link to social media"],
+    answer: "Apply styles based on device characteristics like width, height, and orientation",
+    topic: "CSS"
+  },
+  {
+    id: 238,
+    question: "What is a 'Promise' in JavaScript?",
+    options: ["A guarantee that a function will run", "An object representing the eventual completion (or failure) of an asynchronous operation", "A variable that cannot be changed", "A security token"],
+    answer: "An object representing the eventual completion (or failure) of an asynchronous operation",
+    topic: "JavaScript"
+  },
+  {
+    id: 239,
+    question: "Which HTML element is used to define a block of quoted content from another source?",
+    options: ["<quote>", "<blockquote>", "<q>", "<citation>"],
+    answer: "<blockquote>",
+    topic: "HTML"
+  },
+  {
+    id: 240,
+    question: "How can you select an input field that is currently disabled using CSS?",
+    options: ["input[disabled]", "input:disabled", "input.disabled", "input#disabled"],
+    answer: "input:disabled",
+    topic: "CSS"
+  }
 ];
