@@ -158,7 +158,7 @@ export default function ExamClient({ examId }: { examId: string }) {
            <div className="flex justify-between items-start">
              <div>
                <CardTitle className="font-headline text-3xl">
-                 Mid-Term Examination
+                 Robotics and AI Examination
                </CardTitle>
                <CardDescription>
                  Question {currentQuestionIndex + 1} of {mcqQuestions.length}

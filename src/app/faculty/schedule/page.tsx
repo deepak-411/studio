@@ -68,7 +68,7 @@ export default function ScheduleExamPage() {
               alignment: 'center',
             }),
             new Paragraph({
-              text: `Mid-Term Examination - Question Set ${selectedSet}`,
+              text: `Robotics and AI Examination - Question Set ${selectedSet}`,
               heading: 'Heading1',
               alignment: 'center',
             }),
