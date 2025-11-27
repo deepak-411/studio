@@ -1623,9 +1623,9 @@ topic: "CSS"
   },
   {
     id: 231,
-    question: "What is the 'C' in 'HSL' color values in CSS?",
-    options: ["Cyan", "Clarity", "Chroma", "Contrast"],
-    answer: "Chroma",
+    question: "What is the 'L' in 'HSL' color values in CSS?",
+    options: ["Lightness", "Luminosity", "Level", "Layer"],
+    answer: "Lightness",
     topic: "CSS"
   },
   {
