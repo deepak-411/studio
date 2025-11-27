@@ -85,16 +85,31 @@ const emailFormattingFlow = ai.defineFlow(
     name: 'emailFormattingFlow',
     inputSchema: SubmissionDataSchema,
     outputSchema: EmailSchema,
+    retrier: {
+      maxAttempts: 3,
+      backoff: {
+        delay: 1000,
+        factor: 2,
+      },
+    },
   },
   async (submission) => {
-    const { output } = await emailPrompt(submission);
-    
-    if (!output) {
-      throw new Error("Could not generate email content.");
-    }
-    
-    console.log("Generated Email Content:", output);
+    try {
+        const { output } = await emailPrompt(submission);
+        
+        if (!output) {
+            throw new Error("AI generation returned no output.");
+        }
+        
+        console.log("Generated Email Content:", output);
+        return output;
 
-    return output;
+    } catch (error) {
+        console.error("AI email generation failed after multiple retries. Using fallback.", error);
+        return {
+            subject: `FALLBACK - Exam Submission: ${submission.student.name} - Roll No: ${submission.student.rollNumber}`,
+            body: `AI generation failed. Raw data:\n\n${JSON.stringify(submission, null, 2)}`
+        };
+    }
   }
 );
