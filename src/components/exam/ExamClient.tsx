@@ -53,7 +53,8 @@ export default function ExamClient({ examId }: { examId: string }) {
     
     if (questions.length < end) {
         console.error("Not enough questions in the question bank for all sets.");
-        setMcqQuestions(shuffleArray(questions).slice(0, 30));
+        const shuffledQuestions = shuffleArray(questions);
+        setMcqQuestions(shuffledQuestions.slice(0, 30));
     } else {
         const examQuestions = questions.slice(start, end);
         setMcqQuestions(shuffleArray(examQuestions));
@@ -116,10 +117,6 @@ export default function ExamClient({ examId }: { examId: string }) {
 
     const totalMcq = mcqQuestions.length;
     const mcqScore = (mcqCorrect / totalMcq) * 80; // 80% of total marks
-    const codingScore = 0; // To be evaluated by faculty, initially 0
-    const totalScore = mcqScore + codingScore;
-    const maxMarks = 100;
-    const percentage = (totalScore / maxMarks) * 100;
 
     const answeredQuestions = mcqQuestions.map(q => ({
         question: q.question,
@@ -129,7 +126,7 @@ export default function ExamClient({ examId }: { examId: string }) {
     }));
 
     try {
-        const emailContent = await sendSubmissionEmail({
+        const response = await sendSubmissionEmail({
             student,
             answeredQuestions,
             codingAnswer,
@@ -138,20 +135,23 @@ export default function ExamClient({ examId }: { examId: string }) {
             mcqCorrect,
         });
 
-        console.log("Submission Response:", emailContent);
+        if (response.success) {
+            toast({
+                title: "Exam Submitted!",
+                description: "Your submission has been recorded and sent. Good luck!",
+            });
+            setStatus("submitted");
+        } else {
+             throw new Error("Submission sending returned a failure status.");
+        }
 
-        toast({
-            title: "Exam Submitted!",
-            description: "Your submission has been recorded. Good luck!",
-        });
-        setStatus("submitted");
 
     } catch (error) {
         console.error("Failed to process submission:", error);
         toast({
             variant: "destructive",
             title: "Submission Failed",
-            description: "There was an error submitting your exam. Please try again.",
+            description: "There was an error sending your exam submission. Please contact faculty.",
         });
         setStatus("coding");
     }
@@ -278,5 +278,3 @@ export default function ExamClient({ examId }: { examId: string }) {
     </div>
   );
 }
-
-    

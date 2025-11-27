@@ -9,6 +9,7 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
+import { sendEmail } from '@/lib/email-service';
 
 const AnsweredQuestionSchema = z.object({
     question: z.string(),
@@ -42,40 +43,27 @@ const EmailSchema = z.object({
 export type EmailOutput = z.infer<typeof EmailSchema>;
 
 
-export async function sendSubmissionEmail(input: SubmissionData): Promise<EmailOutput> {
+export async function sendSubmissionEmail(input: SubmissionData): Promise<{ success: boolean }> {
   return emailFormattingFlow(input);
 }
-
 
 const emailPrompt = ai.definePrompt({
     name: 'submissionEmailPrompt',
     input: { schema: SubmissionDataSchema },
     output: { schema: EmailSchema },
     prompt: `
-      Generate a plain text summary for an exam submission email. Do not use Markdown or HTML.
-      The output must be a JSON object with 'subject' and 'body' fields.
+      Generate an HTML email body for an exam submission. The output must be a JSON object with 'subject' and 'body' fields.
       The subject must be: "Exam Submission: {{student.name}} - Roll No: {{student.rollNumber}}"
 
-      The body should be structured as follows:
+      The HTML body should be well-structured and easy to read. Use basic inline styles for formatting.
 
-      Student Details:
-      - Name: {{student.name}}
-      - Roll Number: {{student.rollNumber}}
-      - Class: {{student.class}} - {{student.section}}
-
-      Exam Results:
-      - MCQ Score: {{mcqCorrect}} / {{totalMcqQuestions}} ({{mcqScore}} / 80 marks)
-
-      Coding Challenge Submission:
-      \`\`\`
-      {{{codingAnswer}}}
-      \`\`\`
-
-      MCQ Answers Breakdown:
-      {{#each answeredQuestions}}
-      - Question: {{question}}
-        - Your Answer: {{selectedAnswer}} {{#if isCorrect}}(Correct){{else}}(Incorrect - Correct was: {{correctAnswer}}){{/if}}
-      {{/each}}
+      The body should contain:
+      - A main heading: "Exam Submission Details"
+      - A section for "Student Details" with Name, Roll Number, and Class.
+      - A section for "Exam Results" with "MCQ Score".
+      - A section for "Coding Challenge Submission" with the code inside a <pre><code> block.
+      - A section for "MCQ Answers Breakdown" as a list.
+      - For each MCQ, show the question, the student's answer, and whether it was correct or incorrect. If incorrect, show the correct answer.
     `,
 });
 
@@ -84,11 +72,11 @@ const emailFormattingFlow = ai.defineFlow(
   {
     name: 'emailFormattingFlow',
     inputSchema: SubmissionDataSchema,
-    outputSchema: EmailSchema,
+    outputSchema: z.object({ success: z.boolean() }),
     retrier: {
       maxAttempts: 3,
       backoff: {
-        delay: 1000,
+        delay: 2000,
         factor: 2,
       },
     },
@@ -101,15 +89,32 @@ const emailFormattingFlow = ai.defineFlow(
             throw new Error("AI generation returned no output.");
         }
         
-        console.log("Generated Email Content:", output);
-        return output;
+        console.log("Generated Email Content. Preparing to send...");
+
+        await sendEmail({
+            to: 'dk3624897@gmail.com',
+            subject: output.subject,
+            text: 'Please view this email in an HTML-compatible client.',
+            html: output.body
+        });
+
+        return { success: true };
 
     } catch (error) {
-        console.error("AI email generation failed after multiple retries. Using fallback.", error);
-        return {
-            subject: `FALLBACK - Exam Submission: ${submission.student.name} - Roll No: ${submission.student.rollNumber}`,
-            body: `AI generation failed. Raw data:\n\n${JSON.stringify(submission, null, 2)}`
-        };
+        console.error("Failed to generate or send email after multiple retries:", error);
+        // Fallback: Try to send a basic email with raw data if AI or sending fails
+        try {
+            await sendEmail({
+                to: 'dk3624897@gmail.com',
+                subject: `FALLBACK - Exam Submission: ${submission.student.name}`,
+                text: `AI generation or primary email sending failed. Raw data:\n\n${JSON.stringify(submission, null, 2)}`,
+                html: `<p>AI generation or primary email sending failed. Raw data:</p><pre>${JSON.stringify(submission, null, 2)}</pre>`
+            });
+            return { success: true }; // Still counts as success as a fallback was sent
+        } catch (fallbackError) {
+            console.error("Fallback email also failed:", fallbackError);
+            throw new Error('Failed to send both primary and fallback emails.');
+        }
     }
   }
 );
