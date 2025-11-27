@@ -55,15 +55,29 @@ const emailPrompt = ai.definePrompt({
       Generate an HTML email body for an exam submission. The output must be a JSON object with 'subject' and 'body' fields.
       The subject must be: "Exam Submission: {{student.name}} - Roll No: {{student.rollNumber}}"
 
-      The HTML body should be well-structured and easy to read. Use basic inline styles for formatting.
+      The HTML body should be well-structured and easy to read. Use inline styles for formatting.
 
-      The body should contain:
-      - A main heading: "Exam Submission Details"
-      - A section for "Student Details" with Name, Roll Number, and Class.
-      - A section for "Exam Results" with "MCQ Score".
-      - A section for "Coding Challenge Submission" with the code inside a <pre><code> block.
-      - A section for "MCQ Answers Breakdown" as a list.
-      - For each MCQ, show the question, the student's answer, and whether it was correct or incorrect. If incorrect, show the correct answer.
+      The body should contain the following sections in this order:
+      1. A main heading: "Exam Submission Details"
+      2. A section for "Student Details" with Name, Roll Number, Class, and Section.
+      3. A section for "Exam Results Summary" showing:
+         - MCQ Score: "{{mcqScore}} / 80"
+         - Correct MCQ Answers: "{{mcqCorrect}} / {{totalMcqQuestions}}"
+         - Coding Challenge Score: "Pending Evaluation"
+      4. A section for "Coding Challenge Submission". The student's code must be placed inside a <pre><code> block. If the codingAnswer is empty, the block should be empty. Do not add any of your own code or text.
+         {{{codingAnswer}}}
+      5. A section for "MCQ Answers Breakdown". This should be an ordered list.
+         For EACH question in the 'answeredQuestions' array, display:
+         - The Question.
+         - The Student's Answer.
+         - The Correct Answer.
+         - Indicate if the student's answer was "Correct" or "Incorrect".
+         - Example for one question:
+           <li>
+             <p><strong>Question:</strong> What is 2+2?</p>
+             <p><strong>Your Answer:</strong> 5 (Incorrect)</p>
+             <p><strong>Correct Answer:</strong> 4</p>
+           </li>
     `,
 });
 
