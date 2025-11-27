@@ -129,7 +129,7 @@ export default function ExamClient({ examId }: { examId: string }) {
     }));
 
     try {
-        await sendSubmissionEmail({
+        const emailContent = await sendSubmissionEmail({
             student,
             answeredQuestions,
             codingAnswer,
@@ -138,6 +138,8 @@ export default function ExamClient({ examId }: { examId: string }) {
             mcqCorrect,
         });
 
+        console.log("Submission Response:", emailContent);
+
         toast({
             title: "Exam Submitted!",
             description: "Your submission has been recorded. Good luck!",
@@ -145,7 +147,7 @@ export default function ExamClient({ examId }: { examId: string }) {
         setStatus("submitted");
 
     } catch (error) {
-        console.error("Failed to send submission email:", error);
+        console.error("Failed to process submission:", error);
         toast({
             variant: "destructive",
             title: "Submission Failed",

@@ -8,8 +8,7 @@
  */
 
 import { ai } from '@/ai/genkit';
-import type { User } from '@/lib/user-store';
-import { z } from 'genkit';
+import { z } from 'zod';
 
 const AnsweredQuestionSchema = z.object({
     question: z.string(),
@@ -36,17 +35,25 @@ const SubmissionDataSchema = z.object({
 
 export type SubmissionData = z.infer<typeof SubmissionDataSchema>;
 
-export async function sendSubmissionEmail(input: SubmissionData): Promise<void> {
-  await emailSendingFlow(input);
+const EmailSchema = z.object({
+    subject: z.string(),
+    body: z.string(),
+});
+export type EmailOutput = z.infer<typeof EmailSchema>;
+
+
+export async function sendSubmissionEmail(input: SubmissionData): Promise<EmailOutput> {
+  return emailFormattingFlow(input);
 }
 
 
 const emailPrompt = ai.definePrompt({
     name: 'submissionEmailPrompt',
     input: { schema: SubmissionDataSchema },
+    output: { schema: EmailSchema },
     prompt: `
       Generate a plain text summary for an exam submission email. Do not use Markdown or HTML.
-      The email should be sent to dk3624897@gmail.com.
+      The output must be a JSON object with 'subject' and 'body' fields.
       The subject must be: "Exam Submission: {{student.name}} - Roll No: {{student.rollNumber}}"
 
       The body should be structured as follows:
@@ -73,22 +80,21 @@ const emailPrompt = ai.definePrompt({
 });
 
 
-const emailSendingFlow = ai.defineFlow(
+const emailFormattingFlow = ai.defineFlow(
   {
-    name: 'emailSendingFlow',
+    name: 'emailFormattingFlow',
     inputSchema: SubmissionDataSchema,
-    outputSchema: z.void(),
+    outputSchema: EmailSchema,
   },
   async (submission) => {
     const { output } = await emailPrompt(submission);
+    
+    if (!output) {
+      throw new Error("Could not generate email content.");
+    }
+    
+    console.log("Generated Email Content:", output);
 
-    // In a real application, you would integrate an email sending service here.
-    // For this example, we will log the formatted email content to the console,
-    // which simulates the 'sending' of the email by the server-side flow.
-    console.log("--- SIMULATING EMAIL SEND ---");
-    console.log(output);
-    console.log("--- END OF SIMULATED EMAIL ---");
+    return output;
   }
 );
-
-    
