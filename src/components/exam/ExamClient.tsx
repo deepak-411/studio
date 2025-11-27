@@ -19,9 +19,11 @@ import Timer from "./Timer";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
-import { Code, Send } from "lucide-react";
+import { Code, Send, Loader2 } from "lucide-react";
+import { getCurrentUser } from "@/lib/user-store";
+import { sendSubmissionEmail } from "@/ai/flows/send-submission-email-flow";
 
-type ExamStatus = "loading" | "mcq" | "coding" | "submitted";
+type ExamStatus = "loading" | "mcq" | "coding" | "submitting" | "submitted";
 type Answers = { [key: number]: string };
 
 const shuffleArray = <T,>(array: T[]): T[] => {
@@ -92,30 +94,65 @@ export default function ExamClient({ examId }: { examId: string }) {
     handleSubmitExam();
   }
 
-  const handleSubmitExam = () => {
-    let score = 0;
+  const handleSubmitExam = async () => {
+    setStatus("submitting");
+    const student = getCurrentUser();
+    if (!student) {
+        toast({
+            variant: "destructive",
+            title: "Error",
+            description: "Could not identify student. Please log in again.",
+        });
+        setStatus("coding");
+        return;
+    }
+
+    let mcqCorrect = 0;
     mcqQuestions.forEach(q => {
         if (answers[q.id] === q.answer) {
-            score++;
+            mcqCorrect++;
         }
     });
 
     const totalMcq = mcqQuestions.length;
-    const mcqScore = (score / totalMcq) * 80;
+    const mcqScore = (mcqCorrect / totalMcq) * 80; // 80% of total marks
+    const codingScore = 0; // To be evaluated by faculty, initially 0
+    const totalScore = mcqScore + codingScore;
+    const maxMarks = 100;
+    const percentage = (totalScore / maxMarks) * 100;
 
-    console.log("--- EXAM SUBMISSION ---");
-    console.log(`Exam ID: ${examId}`);
-    console.log("MCQ Answers:", answers);
-    console.log(`MCQ Score: ${score}/${totalMcq}`);
-    console.log("Coding Answer:", codingAnswer);
-    console.log("--- SENDING TO: dk3624897@gmail.com ---");
-    
-    toast({
-        title: "Exam Submitted!",
-        description: "Your submission has been recorded. Good luck!",
-    });
-    
-    setStatus("submitted");
+    const answeredQuestions = mcqQuestions.map(q => ({
+        question: q.question,
+        selectedAnswer: answers[q.id] || "Not Answered",
+        correctAnswer: q.answer,
+        isCorrect: (answers[q.id] === q.answer)
+    }));
+
+    try {
+        await sendSubmissionEmail({
+            student,
+            answeredQuestions,
+            codingAnswer,
+            mcqScore: mcqScore,
+            totalMcqQuestions: totalMcq,
+            mcqCorrect,
+        });
+
+        toast({
+            title: "Exam Submitted!",
+            description: "Your submission has been recorded. Good luck!",
+        });
+        setStatus("submitted");
+
+    } catch (error) {
+        console.error("Failed to send submission email:", error);
+        toast({
+            variant: "destructive",
+            title: "Submission Failed",
+            description: "There was an error submitting your exam. Please try again.",
+        });
+        setStatus("coding");
+    }
   };
 
   if (status === "loading" || !currentQuestion) {
@@ -129,6 +166,22 @@ export default function ExamClient({ examId }: { examId: string }) {
     );
   }
   
+  if (status === "submitting") {
+    return (
+        <div className="flex h-screen items-center justify-center">
+             <Card className="w-full max-w-lg text-center">
+                <CardHeader>
+                    <CardTitle className="font-headline text-3xl">Submitting...</CardTitle>
+                    <CardDescription>Please wait while we process your submission.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto"/>
+                </CardContent>
+            </Card>
+        </div>
+    )
+  }
+
   if (status === "submitted") {
     return (
         <div className="flex h-screen items-center justify-center">
@@ -223,3 +276,5 @@ export default function ExamClient({ examId }: { examId: string }) {
     </div>
   );
 }
+
+    
