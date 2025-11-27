@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,6 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { storeNewUser } from "@/lib/user-store";
 
 const FormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters."),
@@ -46,14 +48,20 @@ export default function StudentRegisterForm() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "Registration Successful",
-      description: "You can now log in with your credentials.",
-    });
-    // In a real app, you'd save the user to a database.
-    // Here, we just redirect to the login page.
-    console.log("New student registration:", data);
-    router.push("/auth/student/login");
+    const success = storeNewUser(data);
+    if (success) {
+      toast({
+        title: "Registration Successful",
+        description: "You can now log in with your credentials.",
+      });
+      router.push("/auth/student/login");
+    } else {
+       toast({
+        variant: "destructive",
+        title: "Registration Failed",
+        description: "A student with this roll number already exists in this class.",
+      });
+    }
   }
 
   return (

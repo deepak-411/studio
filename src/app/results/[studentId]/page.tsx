@@ -4,36 +4,77 @@ import Marksheet from "@/components/results/Marksheet";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Printer } from "lucide-react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getCurrentUser, findUser, type User } from "@/lib/user-store";
+
 
 export default function ResultPage() {
     const params = useParams();
     const studentId = params.studentId as string;
+    const router = useRouter();
+    const [studentResult, setStudentResult] = useState<{
+        name: string;
+        rollNumber: string;
+        class: string;
+        section: string;
+        exam: string;
+        marks: { robotics: number; coding: number; };
+        totalMarks: { robotics: number; coding: number; };
+    } | null>(null);
 
-    // Mock data for a student
-    const studentResult = {
-        name: "Jane Doe",
-        rollNumber: studentId,
-        class: "10",
-        section: "A",
-        exam: "Robotics and AI Examination 2025",
-        marks: {
+    useEffect(() => {
+        // In a real app, you'd fetch results from a DB.
+        // Here, we'll try to find the student info from localStorage to get their name/class.
+        const loggedInUser = getCurrentUser();
+
+        // Let's create a mock result. The name will come from the logged-in user if it matches.
+        const mockResult = {
             robotics: 65,
             coding: 15,
-        },
-        totalMarks: {
-            robotics: 80,
-            coding: 20
-        }
-    };
+        };
 
-    const obtainedTotal = studentResult.marks.robotics + studentResult.marks.coding;
-    const maximumTotal = studentResult.totalMarks.robotics + studentResult.totalMarks.coding;
+        let userForMarksheet: User | undefined = undefined;
+
+        if (loggedInUser && loggedInUser.rollNumber === studentId) {
+            userForMarksheet = loggedInUser;
+        } else {
+             // Fallback to searching all users if the logged in user is not the one we are looking for
+             const allUsers = JSON.parse(localStorage.getItem('hwhs_users') || '[]') as User[];
+             userForMarksheet = allUsers.find(u => u.rollNumber === studentId);
+        }
+
+        if (userForMarksheet) {
+            setStudentResult({
+                name: userForMarksheet.name,
+                rollNumber: userForMarksheet.rollNumber,
+                class: userForMarksheet.class,
+                section: userForMarksheet.section,
+                exam: "Robotics and AI Examination 2025",
+                marks: mockResult,
+                totalMarks: {
+                    robotics: 80,
+                    coding: 20
+                }
+            });
+        } else {
+             // If no user is found, you might want to show a "Not Found" page or redirect.
+             console.log("Student not found for marksheet");
+        }
+
+
+    }, [studentId]);
     
     const handlePrint = () => {
         window.print();
     };
 
+    if (!studentResult) {
+        return <div className="flex h-screen items-center justify-center"><p>Loading results...</p></div>
+    }
+
+    const obtainedTotal = studentResult.marks.robotics + studentResult.marks.coding;
+    const maximumTotal = studentResult.totalMarks.robotics + studentResult.totalMarks.coding;
 
     return (
         <div className="p-4 sm:p-6 md:p-8">

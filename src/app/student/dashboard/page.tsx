@@ -6,21 +6,37 @@ import { BookOpen, Trophy } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getStoredExam, type ScheduledExam } from "@/lib/exam-store";
+import { getCurrentUser, clearCurrentUser, type User } from "@/lib/user-store";
+import { useRouter } from "next/navigation";
 
 export default function StudentDashboard() {
   const [activeExam, setActiveExam] = useState<ScheduledExam | null>(null);
+  const [student, setStudent] = useState<User | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     setActiveExam(getStoredExam());
-  }, []);
+    const user = getCurrentUser();
+    if (user) {
+        setStudent(user);
+    } else {
+        // Redirect to login if no user is found
+        router.push('/auth/student/login');
+    }
+  }, [router]);
 
-  // Mock student data
-  const student = {
-    name: "Jane Doe",
-    rollNumber: "101",
-    class: "10",
-    section: "A",
-  };
+  const handleLogout = () => {
+    clearCurrentUser();
+    router.push('/auth');
+  }
+
+  if (!student) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -33,10 +49,8 @@ export default function StudentDashboard() {
                 </div>
                  <div className="flex items-center gap-4">
                     <span className="text-sm text-muted-foreground hidden sm:inline">Welcome, {student.name}</span>
-                    <Button variant="outline" size="sm" asChild>
-                       <Link href="/auth">
+                    <Button variant="outline" size="sm" onClick={handleLogout}>
                          Logout
-                       </Link>
                     </Button>
                 </div>
             </div>
@@ -99,7 +113,7 @@ export default function StudentDashboard() {
                         </CardContent>
                         <CardFooter>
                             <Button asChild className="w-full" variant="secondary">
-                                <Link href="/results/101">View Results</Link>
+                                <Link href={`/results/${student.rollNumber}`}>View Results</Link>
                             </Button>
                         </CardFooter>
                     </Card>

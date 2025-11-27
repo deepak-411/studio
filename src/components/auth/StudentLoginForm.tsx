@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { findUser, setCurrentUser } from "@/lib/user-store";
 
 const FormSchema = z.object({
   rollNumber: z.string().min(1, "Roll number is required."),
@@ -44,13 +46,22 @@ export default function StudentLoginForm() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "Login Successful",
-      description: `Welcome, student ${data.rollNumber}!`,
-    });
-    // In a real app, you'd verify credentials and create a session.
-    // Here, we just redirect to the dashboard.
-    router.push("/student/dashboard");
+    const user = findUser(data.rollNumber, data.class, data.section);
+
+    if (user) {
+      setCurrentUser(user);
+      toast({
+        title: "Login Successful",
+        description: `Welcome, ${user.name}!`,
+      });
+      router.push("/student/dashboard");
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Login Failed",
+        description: "No student found with these details. Please register first.",
+      });
+    }
   }
 
   return (
