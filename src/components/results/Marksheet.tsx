@@ -15,9 +15,10 @@ type MarksheetProps = {
     section: string;
     examTitle: string;
     roboticsMarks: number;
-    codingMarks: number;
+    codingMarks: number | "Pending";
     totalObtained: number;
     totalMax: number;
+    isFinal: boolean;
 };
 
 export default function Marksheet({
@@ -29,7 +30,8 @@ export default function Marksheet({
     roboticsMarks,
     codingMarks,
     totalObtained,
-    totalMax
+    totalMax,
+    isFinal,
 }: MarksheetProps) {
     const [currentDate, setCurrentDate] = React.useState("");
 
@@ -90,22 +92,27 @@ export default function Marksheet({
                         <TableCell>2</TableCell>
                         <TableCell>Robotics & AI (Coding)</TableCell>
                         <TableCell className="text-right">20</TableCell>
-                        <TableCell className="text-right">{codingMarks}</TableCell>
+                        <TableCell className="text-right font-bold">{typeof codingMarks === 'number' ? codingMarks : "Pending"}</TableCell>
                     </TableRow>
                 </TableBody>
                 <TableFooter>
                     <TableRow className="bg-muted">
                         <TableCell colSpan={2} className="font-bold">Total</TableCell>
                         <TableCell className="text-right font-bold">{totalMax}</TableCell>
-                        <TableCell className="text-right font-bold">{totalObtained}</TableCell>
+                        <TableCell className="text-right font-bold">{isFinal ? totalObtained : "Pending"}</TableCell>
                     </TableRow>
                 </TableFooter>
             </Table>
             
             <div className="grid grid-cols-2 gap-8 mt-8">
                  <div>
-                    <p className="font-bold">Result: <span className="text-primary">PASS</span></p>
-                    <p className="font-bold">Grade: <span className="text-primary">{grade}</span></p>
+                    {isFinal && (
+                        <>
+                            <p className="font-bold">Result: <span className="text-primary">{totalObtained >= (totalMax * 0.4) ? "PASS" : "FAIL"}</span></p>
+                            <p className="font-bold">Grade: <span className="text-primary">{grade}</span></p>
+                        </>
+                    )}
+                    {!isFinal && <p className="font-bold text-accent">Result is provisional and pending final evaluation.</p>}
                  </div>
                  <div className="text-right">
                     <p>Date: {currentDate}</p>
@@ -126,5 +133,3 @@ export default function Marksheet({
     </Card>
   )
 }
-
-    

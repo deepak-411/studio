@@ -19,11 +19,15 @@ import Timer from "./Timer";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
-import { Code, Send, Loader2 } from "lucide-react";
+import { Code, Send, Loader2, ShieldAlert } from "lucide-react";
 import { getCurrentUser } from "@/lib/user-store";
 import { sendSubmissionEmail } from "@/ai/flows/send-submission-email-flow";
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
+import { storeResult, hasAttemptedExam, markExamAsAttempted } from "@/lib/exam-store";
+import { useRouter } from "next/navigation";
 
-type ExamStatus = "loading" | "mcq" | "coding" | "submitting" | "submitted";
+
+type ExamStatus = "loading" | "mcq" | "coding" | "submitting" | "submitted" | "blocked";
 type Answers = { [key: number]: string };
 
 const shuffleArray = <T,>(array: T[]): T[] => {
@@ -37,8 +41,15 @@ export default function ExamClient({ examId }: { examId: string }) {
   const [answers, setAnswers] = useState<Answers>({});
   const [codingAnswer, setCodingAnswer] = useState("");
   const { toast } = useToast();
+  const router = useRouter();
 
   useEffect(() => {
+    const student = getCurrentUser();
+    if (student && hasAttemptedExam(student.rollNumber, examId)) {
+        setStatus("blocked");
+        return;
+    }
+
     const questionSetIndex = parseInt(examId, 10) - 1;
     if (isNaN(questionSetIndex) || questionSetIndex < 0 || questionSetIndex >= 8) {
         console.error("Invalid exam set ID");
@@ -63,11 +74,28 @@ export default function ExamClient({ examId }: { examId: string }) {
     setStatus("mcq");
   }, [examId]);
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden && (status === 'mcq' || status === 'coding')) {
+        toast({
+          variant: "destructive",
+          title: "Tab switched during exam!",
+          description: "Your exam is being submitted automatically.",
+        });
+        handleSubmitExam(true);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [status, answers, codingAnswer]);
+
   const currentQuestion = mcqQuestions[currentQuestionIndex];
 
   const handleNextQuestion = () => {
-    // If no answer is selected, we just move on when time is up.
-    // A toast message for manual navigation is fine.
     if (currentQuestionIndex < mcqQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
@@ -95,7 +123,9 @@ export default function ExamClient({ examId }: { examId: string }) {
     handleSubmitExam();
   }
 
-  const handleSubmitExam = async () => {
+  const handleSubmitExam = async (isAutoSubmit = false) => {
+    if (status === 'submitting' || status === 'submitted' || status === 'blocked') return;
+    
     setStatus("submitting");
     const student = getCurrentUser();
     if (!student) {
@@ -116,7 +146,11 @@ export default function ExamClient({ examId }: { examId: string }) {
     });
 
     const totalMcq = mcqQuestions.length;
-    const mcqScore = (mcqCorrect / totalMcq) * 80; // 80% of total marks
+    const mcqScore = Math.round((mcqCorrect / totalMcq) * 80); // 80% of total marks
+
+    // Store result locally
+    storeResult(student.rollNumber, examId, { robotics: mcqScore, coding: -1 }); // -1 indicates pending evaluation
+    markExamAsAttempted(student.rollNumber, examId);
 
     const answeredQuestions = mcqQuestions.map(q => ({
         question: q.question,
@@ -125,26 +159,25 @@ export default function ExamClient({ examId }: { examId: string }) {
         isCorrect: (answers[q.id] === q.answer)
     }));
 
+    const finalCodingAnswer = isAutoSubmit ? `AUTOMATIC SUBMISSION - USER SWITCHED TABS\n\n${codingAnswer}` : codingAnswer;
+
     try {
-        const response = await sendSubmissionEmail({
+        await sendSubmissionEmail({
             student,
             answeredQuestions,
-            codingAnswer,
+            codingAnswer: finalCodingAnswer,
             mcqScore: mcqScore,
             totalMcqQuestions: totalMcq,
             mcqCorrect,
         });
 
-        if (response.success) {
+        if (!isAutoSubmit) {
             toast({
                 title: "Exam Submitted!",
                 description: "Your submission has been recorded and sent. Good luck!",
             });
-            setStatus("submitted");
-        } else {
-             throw new Error("Submission sending returned a failure status.");
         }
-
+        setStatus("submitted");
 
     } catch (error) {
         console.error("Failed to process submission:", error);
@@ -166,6 +199,27 @@ export default function ExamClient({ examId }: { examId: string }) {
             </div>
         </div>
     );
+  }
+
+  if (status === "blocked") {
+     return (
+        <div className="flex h-screen items-center justify-center">
+            <Card className="w-full max-w-lg text-center">
+                <CardHeader>
+                    <CardTitle className="font-headline text-3xl">Exam Already Attempted</CardTitle>
+                    <CardDescription>You have already submitted this exam and cannot attempt it again.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <p>Your results will be published on the dashboard once they are evaluated by the faculty.</p>
+                </CardContent>
+                <CardFooter>
+                    <Button asChild className="w-full">
+                        <Link href="/student/dashboard">Back to Dashboard</Link>
+                    </Button>
+                </CardFooter>
+            </Card>
+        </div>
+    )
   }
   
   if (status === "submitting") {
@@ -219,7 +273,25 @@ export default function ExamClient({ examId }: { examId: string }) {
                  Question {currentQuestionIndex + 1} of {mcqQuestions.length}
                </CardDescription>
              </div>
-             <Timer initialTime={60} onTimeUp={handleNextQuestion} playSound={true} key={`${status}-${currentQuestionIndex}`}/>
+             <div className="flex flex-col items-center gap-2">
+                <Timer initialTime={60} onTimeUp={handleNextQuestion} playSound={false} key={`${status}-${currentQuestionIndex}`}/>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                     <Button variant="destructive" size="sm"><ShieldAlert className="mr-2"/> Rules</Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Exam Rules & Anti-Cheating</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Switching browser tabs or windows during the exam is strictly prohibited. If you leave this tab, your exam will be automatically submitted. You cannot attempt the exam again.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogAction>I Understand</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+             </div>
            </div>
            <Progress value={((currentQuestionIndex + 1) / mcqQuestions.length) * 100} className="mt-4" />
          </CardHeader>
@@ -270,7 +342,7 @@ export default function ExamClient({ examId }: { examId: string }) {
                  </CardContent>
                  <CardFooter className="justify-between border-t pt-4">
                      <Button variant="secondary">Run Code (Mock)</Button>
-                     <Button onClick={handleSubmitExam}>Submit Exam <Send className="ml-2"/></Button>
+                     <Button onClick={() => handleSubmitExam()}>Submit Exam <Send className="ml-2"/></Button>
                  </CardFooter>
               </Card>
          </div>
