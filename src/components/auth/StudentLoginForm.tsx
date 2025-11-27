@@ -117,9 +117,9 @@ export default function StudentLoginForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {["A", "B", "C", "D"].map((s) => (
+                  {["Daffodils", "Daisies"].map((s) => (
                     <SelectItem key={s} value={s}>
-                      Section {s}
+                      {s}
                     </SelectItem>
                   ))}
                 </SelectContent>
