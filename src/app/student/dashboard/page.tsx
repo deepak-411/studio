@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { BookOpen, Trophy } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getStoredExam, type ScheduledExam } from "@/lib/exam-store";
+import { getExamForStudent, type ScheduledExam } from "@/lib/exam-store";
 import { getCurrentUser, clearCurrentUser, type User } from "@/lib/user-store";
 import { useRouter } from "next/navigation";
 
@@ -15,10 +15,12 @@ export default function StudentDashboard() {
   const router = useRouter();
 
   useEffect(() => {
-    setActiveExam(getStoredExam());
     const user = getCurrentUser();
     if (user) {
         setStudent(user);
+        // Find the exam specific to this student's class and section
+        const examForStudent = getExamForStudent(user.class, user.section);
+        setActiveExam(examForStudent);
     } else {
         // Redirect to login if no user is found
         router.push('/auth/student/login');
@@ -88,7 +90,7 @@ export default function StudentDashboard() {
                                 <BookOpen className="text-primary"/>
                                 Available Exam
                             </CardTitle>
-                            <CardDescription>{activeExam ? `Class ${activeExam.selectedClass} - Set ${activeExam.selectedSet}` : 'No exam scheduled'}</CardDescription>
+                            <CardDescription>{activeExam ? `Exam for Your Class: Set ${activeExam.selectedSet}` : 'No exam scheduled for your class'}</CardDescription>
                         </CardHeader>
                         <CardContent>
                            <p><strong>Duration:</strong> 1 Hour</p>
@@ -109,7 +111,7 @@ export default function StudentDashboard() {
                             <CardDescription>Check your published exam results.</CardDescription>
                         </CardHeader>
                          <CardContent>
-                           <p className="text-muted-foreground">No results published yet.</p>
+                           <p className="text-muted-foreground">Results will be available here after evaluation.</p>
                         </CardContent>
                         <CardFooter>
                             <Button asChild className="w-full" variant="secondary">

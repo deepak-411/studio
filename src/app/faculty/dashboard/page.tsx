@@ -2,16 +2,16 @@
 'use client';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BookCopy, CheckSquare, Presentation, User } from "lucide-react";
+import { BookCopy, CheckSquare, Presentation, User, List } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getStoredExam, type ScheduledExam } from "@/lib/exam-store";
+import { getStoredExams, type ScheduledExam } from "@/lib/exam-store";
 
 export default function FacultyDashboard() {
-  const [activeExam, setActiveExam] = useState<ScheduledExam | null>(null);
+  const [activeExams, setActiveExams] = useState<ScheduledExam[]>([]);
 
   useEffect(() => {
-    setActiveExam(getStoredExam());
+    setActiveExams(getStoredExams());
   }, []);
 
   return (
@@ -55,9 +55,9 @@ export default function FacultyDashboard() {
                             <Presentation className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">{activeExam ? 1 : 0}</div>
-                             <p className="text-xs text-muted-foreground truncate">
-                                {activeExam ? `Class ${activeExam.selectedClass}-${activeExam.selectedSection} | Set ${activeExam.selectedSet}` : 'No active exam'}
+                            <div className="text-2xl font-bold">{activeExams.length}</div>
+                             <p className="text-xs text-muted-foreground">
+                                {activeExams.length > 0 ? `${activeExams.length} schedules active` : 'No active exams'}
                             </p>
                         </CardContent>
                     </Card>
@@ -83,19 +83,42 @@ export default function FacultyDashboard() {
                         </CardContent>
                     </Card>
                 </div>
+                
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <Card className="lg:col-span-1">
+                        <CardHeader>
+                            <CardTitle>Manage Exams</CardTitle>
+                            <CardDescription>Schedule new exams and manage results.</CardDescription>
+                        </CardHeader>
+                        <CardContent className="flex flex-col gap-4">
+                            <Button asChild>
+                                <Link href="/faculty/schedule">Schedule New Exam</Link>
+                            </Button>
+                            <Button variant="secondary">Publish Results</Button>
+                        </CardContent>
+                    </Card>
 
-                 <Card>
-                    <CardHeader>
-                        <CardTitle>Manage Exams</CardTitle>
-                        <CardDescription>Schedule new exams and manage results.</CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex gap-4">
-                        <Button asChild>
-                            <Link href="/faculty/schedule">Schedule New Exam</Link>
-                        </Button>
-                        <Button variant="secondary">Publish Results</Button>
-                    </CardContent>
-                </Card>
+                    <Card className="lg:col-span-2">
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2"><List /> Active Exam Schedules</CardTitle>
+                            <CardDescription>The following exams are currently active for students.</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                           {activeExams.length > 0 ? (
+                               <ul className="space-y-2">
+                                   {activeExams.map((exam, index) => (
+                                       <li key={index} className="flex justify-between items-center p-2 bg-muted rounded-md">
+                                           <span>Class <strong>{exam.selectedClass}</strong> - Section <strong>{exam.selectedSection}</strong></span>
+                                           <span className="font-mono bg-primary text-primary-foreground px-2 py-1 rounded">Set {exam.selectedSet}</span>
+                                       </li>
+                                   ))}
+                               </ul>
+                           ) : (
+                               <p className="text-muted-foreground text-center py-8">No exams are currently scheduled.</p>
+                           )}
+                        </CardContent>
+                    </Card>
+                </div>
             </div>
         </main>
     </div>

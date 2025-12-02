@@ -6,8 +6,8 @@ import { ArrowLeft, Printer } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { findUser, type User } from "@/lib/user-store";
-import { getStoredExam, getResultForStudent, type ExamResult } from "@/lib/exam-store";
+import { type User } from "@/lib/user-store";
+import { getStoredExams, getResultForStudent, type ExamResult, type ScheduledExam } from "@/lib/exam-store";
 
 
 type MarksheetData = {
@@ -29,29 +29,31 @@ export default function ResultPage() {
     useEffect(() => {
         if (!studentId) return;
 
-        // In a real app, you'd fetch results from a DB.
-        // Here, we'll try to find the student info from localStorage.
         const allUsers = JSON.parse(localStorage.getItem('hwhs_users') || '[]') as User[];
         const userForMarksheet = allUsers.find(u => u.rollNumber === studentId);
         
-        const activeExam = getStoredExam();
-        
-        if (userForMarksheet && activeExam) {
-            const result = getResultForStudent(userForMarksheet.rollNumber, activeExam.selectedSet);
+        if (userForMarksheet) {
+            const allExams = getStoredExams();
+            // Find the exam this student would have taken
+            const examForStudent = allExams.find(e => e.selectedClass === userForMarksheet.class && e.selectedSection === userForMarksheet.section);
 
-            if (result) {
-                setStudentResult({
-                    name: userForMarksheet.name,
-                    rollNumber: userForMarksheet.rollNumber,
-                    class: userForMarksheet.class,
-                    section: userForMarksheet.section,
-                    exam: `Robotics and AI Examination 2025 (Set ${activeExam.selectedSet})`,
-                    marks: result,
-                    totalMarks: {
-                        robotics: 80,
-                        coding: 20
-                    }
-                });
+            if (examForStudent) {
+                 const result = getResultForStudent(userForMarksheet.rollNumber, examForStudent.selectedSet);
+
+                if (result) {
+                    setStudentResult({
+                        name: userForMarksheet.name,
+                        rollNumber: userForMarksheet.rollNumber,
+                        class: userForMarksheet.class,
+                        section: userForMarksheet.section,
+                        exam: `Robotics and AI Examination 2025 (Set ${examForStudent.selectedSet})`,
+                        marks: result,
+                        totalMarks: {
+                            robotics: 80,
+                            coding: 20
+                        }
+                    });
+                }
             }
         }
         setIsLoading(false);

@@ -33,7 +33,7 @@ export default function ScheduleExamPage() {
 
     toast({
       title: 'Exam Scheduled!',
-      description: `Exam for Class ${selectedClass}-${selectedSection} with Set ${selectedSet} has been scheduled.`,
+      description: `Exam for Class ${selectedClass}-${selectedSection} with Set ${selectedSet} is now active.`,
     });
 
     router.push('/faculty/dashboard');
@@ -50,7 +50,7 @@ export default function ScheduleExamPage() {
     }
     
     // Lazy-load docx
-    const { Document, Packer, Paragraph, TextRun, Numbering, Indent } = await import('docx');
+    const { Document, Packer, Paragraph, TextRun } = await import('docx');
     
     const questionSetIndex = parseInt(selectedSet, 10) - 1;
     const questionsPerSet = 30;

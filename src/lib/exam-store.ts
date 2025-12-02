@@ -12,29 +12,52 @@ export type ExamResult = {
     coding: number; // -1 if pending, otherwise score
 }
 
-const EXAM_STORAGE_KEY = 'activeExam';
+const EXAMS_STORAGE_KEY = 'activeExams'; // Changed from EXAM_STORAGE_KEY
 const RESULTS_STORAGE_KEY = 'examResults';
 const ATTEMPTS_STORAGE_KEY = 'examAttempts';
 
 export function storeExam(exam: ScheduledExam) {
   if (typeof window !== 'undefined') {
-    window.localStorage.setItem(EXAM_STORAGE_KEY, JSON.stringify(exam));
+    const exams = getStoredExams();
+    // Prevent duplicate schedules for the same class/section
+    const existingIndex = exams.findIndex(e => e.selectedClass === exam.selectedClass && e.selectedSection === exam.selectedSection);
+    if (existingIndex > -1) {
+        exams[existingIndex] = exam; // Update existing schedule
+    } else {
+        exams.push(exam); // Add new schedule
+    }
+    window.localStorage.setItem(EXAMS_STORAGE_KEY, JSON.stringify(exams));
   }
 }
 
-export function getStoredExam(): ScheduledExam | null {
+export function getStoredExams(): ScheduledExam[] {
   if (typeof window !== 'undefined') {
-    const storedExam = window.localStorage.getItem(EXAM_STORAGE_KEY);
-    if (storedExam) {
+    const storedExams = window.localStorage.getItem(EXAMS_STORAGE_KEY);
+    if (storedExams) {
       try {
-        return JSON.parse(storedExam);
+        return JSON.parse(storedExams);
       } catch (e) {
-        console.error("Failed to parse stored exam data", e);
-        return null;
+        console.error("Failed to parse stored exams data", e);
+        return [];
       }
     }
   }
-  return null;
+  return [];
+}
+
+// Deprecated: use getStoredExams instead
+export function getStoredExam(): ScheduledExam | null {
+  console.warn("getStoredExam is deprecated. Use getStoredExams or getExamForStudent instead.");
+  const exams = getStoredExams();
+  return exams.length > 0 ? exams[0] : null;
+}
+
+export function getExamForStudent(studentClass: string, studentSection: string): ScheduledExam | null {
+    if (typeof window !== 'undefined') {
+        const exams = getStoredExams();
+        return exams.find(e => e.selectedClass === studentClass && e.selectedSection === studentSection) || null;
+    }
+    return null;
 }
 
 // --- Result Management ---
