@@ -91,6 +91,7 @@ export default function ExamClient({ examId }: { examId: string }) {
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status, answers, codingAnswer]);
 
   const currentQuestion = mcqQuestions[currentQuestionIndex];
@@ -115,7 +116,7 @@ export default function ExamClient({ examId }: { examId: string }) {
     handleNextQuestion();
   }
 
-  const handleCodingTimeUp = () => {
+  const handleTimeUp = () => {
      toast({
       title: "Time's up!",
       description: "Submitting your exam now.",
@@ -261,92 +262,89 @@ export default function ExamClient({ examId }: { examId: string }) {
 
   return (
     <div className="flex h-screen w-screen flex-col">
-      {status === 'mcq' && (
-         <Card className="flex h-full w-full flex-col rounded-none border-0">
-         <CardHeader>
-           <div className="flex justify-between items-start">
-             <div>
-               <CardTitle className="font-headline text-3xl">
-                 Robotics and AI Examination
-               </CardTitle>
+      <Card className="flex h-full w-full flex-col rounded-none border-0">
+        <CardHeader>
+          <div className="flex justify-between items-start">
+            <div>
+              <CardTitle className="font-headline text-3xl">
+                Robotics and AI Examination
+              </CardTitle>
                <CardDescription>
-                 Question {currentQuestionIndex + 1} of {mcqQuestions.length}
-               </CardDescription>
-             </div>
-             <div className="flex flex-col items-center gap-2">
-                <Timer initialTime={60} onTimeUp={handleNextQuestion} playSound={false} key={`${status}-${currentQuestionIndex}`}/>
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                     <Button variant="destructive" size="sm"><ShieldAlert className="mr-2"/> Rules</Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Exam Rules & Anti-Cheating</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        Switching browser tabs or windows during the exam is strictly prohibited. If you leave this tab, your exam will be automatically submitted. You cannot attempt the exam again.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogAction>I Understand</AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-             </div>
-           </div>
-           <Progress value={((currentQuestionIndex + 1) / mcqQuestions.length) * 100} className="mt-4" />
-         </CardHeader>
-         <CardContent className="flex-1 overflow-y-auto">
-           <h2 className="text-lg font-semibold mb-6">{currentQuestion.question}</h2>
-           <RadioGroup
-             value={answers[currentQuestion.id] || ""}
-             onValueChange={(value) =>
-               setAnswers({ ...answers, [currentQuestion.id]: value })
-             }
-             className="space-y-4"
-           >
-             {currentQuestion.options.map((option, index) => (
-               <div key={index} className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-muted transition-colors">
-                 <RadioGroupItem value={option} id={`option-${index}`} />
-                 <Label htmlFor={`option-${index}`} className="flex-1 text-base cursor-pointer">{option}</Label>
-               </div>
-             ))}
-           </RadioGroup>
-         </CardContent>
-         <CardFooter className="justify-end border-t pt-4">
-           <Button onClick={handleManualNext}>
-             {currentQuestionIndex === mcqQuestions.length - 1 ? "Proceed to Coding Section" : "Next Question"}
-           </Button>
-         </CardFooter>
-       </Card>
-      )}
-      {status === 'coding' && (
-         <div className="flex h-screen w-screen flex-col">
-              <Card className="flex h-full w-full flex-col rounded-none border-0">
-                 <CardHeader>
-                     <div className="flex justify-between items-center">
-                         <div>
-                             <CardTitle className="font-headline text-2xl flex items-center gap-2"><Code /> Coding Challenge</CardTitle>
-                             <CardDescription>20 Marks</CardDescription>
-                         </div>
-                         <Timer initialTime={600} onTimeUp={handleCodingTimeUp} playSound={true} key={status} />
-                     </div>
-                 </CardHeader>
-                 <CardContent className="flex flex-1 flex-col space-y-4">
+                 {status === 'mcq' ? `Question ${currentQuestionIndex + 1} of ${mcqQuestions.length}` : 'Coding Challenge'}
+              </CardDescription>
+            </div>
+            <div className="flex items-center gap-4">
+               <Timer initialTime={1800} onTimeUp={handleTimeUp} playSound={true} key="overall-timer" />
+               <AlertDialog>
+                 <AlertDialogTrigger asChild>
+                    <Button variant="destructive" size="sm"><ShieldAlert className="mr-2"/> Rules</Button>
+                 </AlertDialogTrigger>
+                 <AlertDialogContent>
+                   <AlertDialogHeader>
+                     <AlertDialogTitle>Exam Rules & Anti-Cheating</AlertDialogTitle>
+                     <AlertDialogDescription>
+                       This is a 30-minute exam. Switching browser tabs or windows during the exam is strictly prohibited. If you leave this tab, your exam will be automatically submitted. You cannot attempt the exam again.
+                     </AlertDialogDescription>
+                   </AlertDialogHeader>
+                   <AlertDialogFooter>
+                     <AlertDialogAction>I Understand</AlertDialogAction>
+                   </AlertDialogFooter>
+                 </AlertDialogContent>
+               </AlertDialog>
+            </div>
+          </div>
+          {status === 'mcq' && <Progress value={((currentQuestionIndex + 1) / mcqQuestions.length) * 100} className="mt-4" />}
+        </CardHeader>
+
+        {status === 'mcq' && (
+           <>
+             <CardContent className="flex-1 overflow-y-auto">
+               <h2 className="text-lg font-semibold mb-6">{currentQuestion.question}</h2>
+               <RadioGroup
+                 value={answers[currentQuestion.id] || ""}
+                 onValueChange={(value) =>
+                   setAnswers({ ...answers, [currentQuestion.id]: value })
+                 }
+                 className="space-y-4"
+               >
+                 {currentQuestion.options.map((option, index) => (
+                   <div key={index} className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-muted transition-colors">
+                     <RadioGroupItem value={option} id={`option-${index}`} />
+                     <Label htmlFor={`option-${index}`} className="flex-1 text-base cursor-pointer">{option}</Label>
+                   </div>
+                 ))}
+               </RadioGroup>
+             </CardContent>
+             <CardFooter className="justify-end border-t pt-4">
+               <Button onClick={handleManualNext}>
+                 {currentQuestionIndex === mcqQuestions.length - 1 ? "Proceed to Coding Section" : "Next Question"}
+               </Button>
+             </CardFooter>
+           </>
+        )}
+
+        {status === 'coding' && (
+           <>
+              <CardContent className="flex flex-1 flex-col space-y-4 pt-0">
+                  <div className="p-4 rounded-lg bg-muted border">
                      <p className="font-semibold">Question: Write HTML and CSS code to display your school name, your name, subject, and marks.</p>
-                     <Textarea 
-                         placeholder="Write your code here..." 
-                         className="font-code flex-1 bg-muted/50"
-                         value={codingAnswer}
-                         onChange={(e) => setCodingAnswer(e.target.value)}
-                     />
-                 </CardContent>
-                 <CardFooter className="justify-between border-t pt-4">
-                     <Button variant="secondary">Run Code (Mock)</Button>
-                     <Button onClick={() => handleSubmitExam()}>Submit Exam <Send className="ml-2"/></Button>
-                 </CardFooter>
-              </Card>
-         </div>
-      )}
+                  </div>
+                  <Textarea 
+                      placeholder="Write your code here..." 
+                      className="font-code flex-1 bg-muted/50"
+                      value={codingAnswer}
+                      onChange={(e) => setCodingAnswer(e.target.value)}
+                  />
+              </CardContent>
+              <CardFooter className="justify-between border-t pt-4">
+                  <Button variant="secondary">Run Code (Mock)</Button>
+                  <Button onClick={() => handleSubmitExam()}>Submit Exam <Send className="ml-2"/></Button>
+              </CardFooter>
+           </>
+        )}
+      </Card>
     </div>
   );
 }
+
+    
