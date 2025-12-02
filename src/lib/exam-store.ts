@@ -16,9 +16,23 @@ const EXAMS_STORAGE_KEY = 'activeExams'; // Changed from EXAM_STORAGE_KEY
 const RESULTS_STORAGE_KEY = 'examResults';
 const ATTEMPTS_STORAGE_KEY = 'examAttempts';
 
+const DEFAULT_EXAMS: ScheduledExam[] = [
+    { selectedClass: '7', selectedSection: 'Daffodils', selectedSet: '1' },
+    { selectedClass: '7', selectedSection: 'Daisies', selectedSet: '1' },
+    { selectedClass: '8', selectedSection: 'Daffodils', selectedSet: '2' },
+    { selectedClass: '8', selectedSection: 'Daisies', selectedSet: '2' },
+    { selectedClass: '9', selectedSection: 'Daffodils', selectedSet: '3' },
+    { selectedClass: '9', selectedSection: 'Daisies', selectedSet: '3' },
+];
+
 export function storeExam(exam: ScheduledExam) {
   if (typeof window !== 'undefined') {
-    const exams = getStoredExams();
+    let exams = getStoredExams();
+    // If default exams are still present, clear them before adding a new one manually
+    if (JSON.stringify(exams) === JSON.stringify(DEFAULT_EXAMS)) {
+        exams = [];
+    }
+    
     // Prevent duplicate schedules for the same class/section
     const existingIndex = exams.findIndex(e => e.selectedClass === exam.selectedClass && e.selectedSection === exam.selectedSection);
     if (existingIndex > -1) {
@@ -38,9 +52,12 @@ export function getStoredExams(): ScheduledExam[] {
         return JSON.parse(storedExams);
       } catch (e) {
         console.error("Failed to parse stored exams data", e);
-        return [];
+        return DEFAULT_EXAMS; // Fallback to default
       }
     }
+    // If no exams are in localStorage, populate with default
+    window.localStorage.setItem(EXAMS_STORAGE_KEY, JSON.stringify(DEFAULT_EXAMS));
+    return DEFAULT_EXAMS;
   }
   return [];
 }
