@@ -83,24 +83,39 @@ export default function StudentDashboard() {
                     </CardContent>
                 </Card>
 
-                <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="lg:col-span-2 grid grid-cols-1 gap-8">
                     <Card className="flex flex-col justify-between">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <BookOpen className="text-primary"/>
-                                Available Exam
+                                Exam Schedule
                             </CardTitle>
-                            <CardDescription>{activeExam ? `Exam for Your Class: Set ${activeExam.selectedSet}` : 'No exam scheduled for your class'}</CardDescription>
+                            <CardDescription>The following exam is scheduled for your class.</CardDescription>
                         </CardHeader>
-                        <CardContent>
-                           <p><strong>Duration:</strong> 1 Hour</p>
-                           <p><strong>Questions:</strong> 30 MCQs + 1 Coding</p>
-                        </CardContent>
-                        <CardFooter>
-                            <Button asChild className="w-full" disabled={!activeExam}>
-                                <Link href={activeExam ? `/exam/${activeExam.selectedSet}` : '#'}>Start Exam</Link>
-                            </Button>
-                        </CardFooter>
+                        {activeExam ? (
+                            <>
+                                <CardContent className="space-y-4">
+                                    <div className="p-4 bg-muted rounded-lg">
+                                        <h3 className="font-bold text-lg">Robotics and AI Examination (Set {activeExam.selectedSet})</h3>
+                                        <div className="grid grid-cols-2 gap-2 mt-2 text-sm">
+                                            <p><strong>Class:</strong> {activeExam.selectedClass}</p>
+                                            <p><strong>Section:</strong> {activeExam.selectedSection}</p>
+                                            <p><strong>Duration:</strong> 1 Hour</p>
+                                            <p><strong>Questions:</strong> 30 MCQs + 1 Coding</p>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                                <CardFooter>
+                                    <Button asChild className="w-full">
+                                        <Link href={`/exam/${activeExam.selectedSet}`}>Start Exam</Link>
+                                    </Button>
+                                </CardFooter>
+                            </>
+                        ) : (
+                             <CardContent className="flex items-center justify-center h-40">
+                                <p className="text-muted-foreground text-center">No exam is currently scheduled for your class.</p>
+                            </CardContent>
+                        )}
                     </Card>
                      <Card className="flex flex-col justify-between">
                         <CardHeader>
